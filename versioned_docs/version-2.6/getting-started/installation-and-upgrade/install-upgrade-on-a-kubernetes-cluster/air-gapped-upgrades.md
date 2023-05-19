@@ -1,5 +1,6 @@
 ---
 title: Rendering the Helm Template in an Air-Gapped Environment
+keywords: [rancher v2.6 air-gapped upgrade, rancher v2.6 air-gap upgrade, air-gapped upgrade rancher v2.6, air-gap upgrade rancher v2.6]
 ---
 
 :::note

@@ -1,5 +1,6 @@
 ---
 title: Upgrades
+keywords: [rancher v2.0-v2.4 air-gapped upgrade, rancher v2.0-v2.4 air-gap upgrade, air-gapped upgrade rancher v2.0-v2.4, air-gap upgrade rancher v2.0-v2.4]
 ---
 
 The following instructions will guide you through upgrading a Rancher server that was installed on a Kubernetes cluster with Helm. These steps also apply to air gap installs with Helm.
