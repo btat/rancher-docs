@@ -1,5 +1,6 @@
 ---
 title: Installing Rancher on Amazon EKS
+keywords: [rancher v2.6 on amazon eks, rancher v2.6 install on amazon eks, install rancher v2.6 on amazon eks, rancher v2.6 amazon elastic kubernetes service]
 ---
 
 This page covers two ways to install Rancher on EKS.
@@ -117,7 +118,7 @@ rancher-server-cluster		us-west-2	True
 
 The cluster needs an Ingress so that Rancher can be accessed from outside the cluster.
 
-To make sure that you choose the correct Ingress-NGINX Helm chart, first find an `Ingress-NGINX version` that's compatible with your Kubernetes version in the [Kubernetes/ingress-nginx support table](https://github.com/kubernetes/ingress-nginx#supported-versions-table). 
+To make sure that you choose the correct Ingress-NGINX Helm chart, first find an `Ingress-NGINX version` that's compatible with your Kubernetes version in the [Kubernetes/ingress-nginx support table](https://github.com/kubernetes/ingress-nginx#supported-versions-table).
 
 Then, list the Helm charts available to you by running the following command:
 
