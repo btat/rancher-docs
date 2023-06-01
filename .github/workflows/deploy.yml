@@ -18,6 +18,8 @@ jobs:
           node-version: 18
           cache: yarn
 
+      - name: Apply update to latest version
+        run: cp ./docs/* ./versioned_docs/version-2.6/
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build website
