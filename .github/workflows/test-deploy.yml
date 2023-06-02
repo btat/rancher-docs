@@ -22,8 +22,15 @@ jobs:
         with:
           files: docs
       - name: Copy changes to versioned docs if docs folder changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
+          cp -r ./docs/* ./versioned_docs/version-2.6/
+          git branch
+          echo "checkout branch now"
+          gh pr checkout ${{ github.event.pull_request.number }}
+          git branch
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: Install dependencies
