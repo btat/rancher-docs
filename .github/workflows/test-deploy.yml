@@ -30,6 +30,8 @@ jobs:
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
           echo "copying files"
           cp -r ./docs/* ./versioned_docs/version-2.7/
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           git add ./versioned_docs/version-2.7/
           git commit -m "Apply change(s) to versioned_docs/version-2.7"
           git push
