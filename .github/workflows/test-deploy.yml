@@ -3,7 +3,7 @@ name: Test deployment
 on:
   pull_request:
     branches:
-      - main
+      - test-copy-action
 
 jobs:
   test-deploy:
@@ -16,6 +16,16 @@ jobs:
           node-version: 18
           cache: yarn
 
+      - name: Get changed files in docs folder!!!
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v36
+        with:
+          files: docs
+      - name: Copy changes to versioned docs if docs folder changed
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Check links
