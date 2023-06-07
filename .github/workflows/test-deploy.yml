@@ -26,7 +26,7 @@ jobs:
         id: changed-files-versioned-docs-dir
         uses: tj-actions/changed-files@v36
         with:
-          files: versioned_docs/version-2.7
+          files: ./versioned_docs/version-2.7/*
 
       - name: List all changed in /docs
         run: |
@@ -63,7 +63,7 @@ jobs:
           steps.changed-files-docs-dir.outputs.any_changed == 'true' &&
           steps.changed-files-versioned-docs-dir.outputs.any_changed == 'false'
         run: |
-          cp -r ./docs/* ./versioned_docs/version-2.7/
+          cp -r ./versioned_docs/version-2.7/* ./docs/
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git config --global --add --bool push.autoSetupRemote true
