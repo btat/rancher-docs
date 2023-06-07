@@ -28,9 +28,15 @@ jobs:
         with:
           files: versioned_docs/version-2.7
 
-      - name: List all changed files
+      - name: List all changed in /docs
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          for file in ${{ steps.changed-files-docs-dir.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
+      - name: List all changed in /versioned_docs
+        run: |
+          for file in ${{ steps.changed-files-versioned-docs-dir.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
 
