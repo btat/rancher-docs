@@ -44,8 +44,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: |
-          steps.changed-files-docs-dir.outputs.any_changed == 'false' &&
-          steps.changed-files-versioned-docs-dir.outputs.any_changed  == 'true'
+          steps.changed-files-docs-dir.outputs.any_changed == 'true' &&
+          steps.changed-files-versioned-docs-dir.outputs.any_changed  == 'false'
         run: |
           cp -r ./docs/* ./versioned_docs/version-2.7/
           git config user.name "GitHub Actions Bot"
@@ -60,8 +60,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: |
-          steps.changed-files-docs-dir.outputs.any_changed == 'true' &&
-          steps.changed-files-versioned-docs-dir.outputs.any_changed == 'false'
+          steps.changed-files-docs-dir.outputs.any_changed == 'false' &&
+          steps.changed-files-versioned-docs-dir.outputs.any_changed == 'true'
         run: |
           cp -r ./versioned_docs/version-2.7/* ./docs/
           git config user.name "GitHub Actions Bot"
