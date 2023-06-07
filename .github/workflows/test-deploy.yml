@@ -3,7 +3,7 @@ name: Test deployment
 on:
   pull_request:
     branches:
-      - main
+      - 27copy
 
 jobs:
   test-deploy:
@@ -16,11 +16,49 @@ jobs:
           node-version: 18
           cache: yarn
 
+      - name: Get changed files in /docs directory
+        id: changed-files-docs-dir
+        uses: tj-actions/changed-files@v36
+        with:
+          files: docs
+      - name: Get changed files in /versioned_docs/version-2.7/ directory
+        id: changed-files-versioned-docs-dir
+        uses: tj-actions/changed-files@v36
+        with:
+          files: versioned_docs/version-2.7
+      - name: Copy changes (if any) from /docs to /versioned_docs/version-2.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: |
+          steps.changed-files-docs-dir.outputs.any_changed == 'true' &&
+          changed-files-versioned-docs-dir == 'false'
+        run: |
+          cp -r ./docs/* ./versioned_docs/version-2.7/
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git config --global --add --bool push.autoSetupRemote true
+          gh pr checkout ${{ github.event.pull_request.number }}
+          git add ./versioned_docs/version-2.7/
+          git commit -m "Apply change(s) from /docs to /versioned_docs/version-2.7"
+          git push
+      - name: Copy changes (if any) from /versioned_docs/version-2.7 to /docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: |
+          steps.changed-files-docs-dir.outputs.any_changed == 'true' &&
+          changed-files-versioned-docs-dir == 'false'
+        run: |
+          cp -r ./docs/* ./versioned_docs/version-2.7/
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git config --global --add --bool push.autoSetupRemote true
+          gh pr checkout ${{ github.event.pull_request.number }}
+          git add ./versioned_docs/version-2.7/
+          git commit -m "Apply change(s) from /versioned_docs/version-2.7 to /docs"
+          git push
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Check links
         run: yarn run remark --quiet --use remark-validate-links --use remark-lint-no-dead-urls ./docs
       - name: Test build website
-        env:
-          NODE_OPTIONS: "--max_old_space_size=6144"
-        run: yarn build --no-minify
+        run: yarn build
