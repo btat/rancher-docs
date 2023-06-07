@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting Controlplane Nodes
+title: Troubleshooting Controlplane Nodes333
 ---
 
 This section applies to nodes with the `controlplane` role.

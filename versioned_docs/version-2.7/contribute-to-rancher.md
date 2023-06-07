@@ -1,5 +1,5 @@
 ---
-title: Contributing to Rancher
+title: Contributing to Rancher222
 ---
 
 This section explains the repositories used for Rancher, how to build the repositories, and what information to include when you file an issue.
