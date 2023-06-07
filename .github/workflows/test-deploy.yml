@@ -68,7 +68,7 @@ jobs:
           git config user.email "<>"
           git config --global --add --bool push.autoSetupRemote true
           gh pr checkout ${{ github.event.pull_request.number }}
-          git add ./versioned_docs/version-2.7/
+          git add ./docs/
           git commit -m "Apply change(s) from /versioned_docs/version-2.7 to /docs"
           git push
       - name: Install dependencies
