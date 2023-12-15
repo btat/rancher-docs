@@ -3,7 +3,7 @@
 const tailwindPlugin = require('./plugins/tailwind-plugin.cjs');
 
 module.exports = {
-  title: 'Rancher',
+  title: 'RancherABC',
   tagline: '',
   url: 'https://ranchermanager.docs.rancher.com/',
   baseUrl: '/',
