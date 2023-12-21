@@ -46439,7 +46439,7 @@ if (true) {
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  "title": "Rancheraaaa",
+  "title": "Rancher",
   "tagline": "",
   "url": "https://ranchermanager.docs.rancher.com",
   "baseUrl": "/zh/",
