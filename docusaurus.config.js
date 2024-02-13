@@ -12,19 +12,19 @@ module.exports = {
   favicon: 'img/favicon.png',
   organizationName: 'rancher', // Usually your GitHub org/user name.
   projectName: 'rancher-docs', // Usually your repo name.
-  trailingSlash: false,
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh'],
-    localeConfigs: {
-      en: {
-        label: 'English',
-      },
-      zh: {
-        label: '简体中文',
-      },
-    },
-  },
+  trailingSlash: true,
+  // i18n: {
+  //   defaultLocale: 'en',
+  //   locales: ['en', 'zh'],
+  //   localeConfigs: {
+  //     en: {
+  //       label: 'English',
+  //     },
+  //     zh: {
+  //       label: '简体中文',
+  //     },
+  //   },
+  // },
   webpack: {
     jsLoader: (isServer) => ({
       loader: require.resolve('swc-loader'),
