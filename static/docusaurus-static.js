@@ -21,28 +21,43 @@
 
 	/* theme switching */
 	var themeButtonElem = document.querySelector('div[class*="colorModeToggle_"] > button');
-	themeButtonElem.disabled = false;
-	themeButtonElem.onclick= function(){
-		documentData.theme = (!documentData.theme || documentData.theme === 'light' ? 'dark' : 'light');
-		localStorage.setItem('theme', documentData.theme);
-		var lightStyle = document.querySelector(`div.navbar__logo > img[class*="light"]`).style;
-		var darkStyle = document.querySelector(`div.navbar__logo > img[class*="dark"]`).style;
-		switch (documentData.theme) {
-			case 'light':
-				lightStyle.display = 'unset';
-				darkStyle.display = 'none';
-			break;
-			case 'dark':
-				lightStyle.display = 'none';
-				darkStyle.display = 'unset';
-			break;
-		}
-	};
+	if(themeButtonElem !== null) {
+		themeButtonElem.disabled = false;
+		themeButtonElem.onclick= function(){
+			documentData.theme = (!documentData.theme || documentData.theme === 'light' ? 'dark' : 'light');
+			localStorage.setItem('theme', documentData.theme);
+			var lightStyle = document.querySelector(`div.navbar__logo > img[class*="light"]`).style;
+			var darkStyle = document.querySelector(`div.navbar__logo > img[class*="dark"]`).style;
+			switch (documentData.theme) {
+				case 'light':
+					lightStyle.display = 'unset';
+					darkStyle.display = 'none';
+				break;
+				case 'dark':
+					lightStyle.display = 'none';
+					darkStyle.display = 'unset';
+				break;
+			}
+		};
 
-	/* set document to default theme */
-	if (!['light', 'dark'].includes(documentData.theme)) {
-		documentData.theme = 'light';
+		/* set document to default theme */
+		if (!['light', 'dark'].includes(documentData.theme)) {
+			documentData.theme = 'light';
+		}
 	}
+
+	// Code to get tabs switching working
+	const tabItems = document.querySelectorAll(".tabs__item");
+
+	tabItems.forEach((tab, index) => {
+		tab.addEventListener("click", () => {
+			tabItems.forEach((item) => item.classList.remove("tabs__item--active"));
+			tab.classList.add("tabs__item--active");
+			const tabPanels = document.querySelectorAll(".tabItem_Ymn6");
+			tabPanels.forEach((panel) => panel.style.display = "none");
+			tabPanels[index].style.display = "block";
+		});
+	});
 
 	window.addEventListener('load', function(){
 
