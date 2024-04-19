@@ -51,11 +51,21 @@
 
 	tabItems.forEach((tab, index) => {
 		tab.addEventListener("click", () => {
+			let matchingTabIndices = [];
 			tabItems.forEach((item) => item.classList.remove("tabs__item--active"));
-			tab.classList.add("tabs__item--active");
+			tabItems.forEach((item, i) => {
+				if(tab.innerHTML === item.innerHTML) {
+					item.classList.add("tabs__item--active");
+					matchingTabIndices.push(i);
+				}
+			})
 			const tabPanels = document.querySelectorAll(".tabItem_Ymn6");
 			tabPanels.forEach((panel) => panel.style.display = "none");
-			tabPanels[index].style.display = "block";
+			tabPanels.forEach((panel, i) => {
+				if(matchingTabIndices.includes(i)) {
+					panel.style.display = "block";
+				}
+			})			
 		});
 	});
 

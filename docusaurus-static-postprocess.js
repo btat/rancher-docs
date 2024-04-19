@@ -13,6 +13,7 @@ const path = require('path');
 const mime = require('mime-types');
 const recursiveReaddir = require('recursive-readdir');
 const cheerio = require('cheerio');
+const os = require('os');
 
 const buildDirectory = path.join(__dirname, 'build');
 const absoluteUrlRegExp = /(href|src)="(?!http[s]?|ftp:\/\/|#)([^"]+)"/g;
@@ -22,16 +23,17 @@ const isDirectoryPath = dirPath => path.extname(dirPath) === '';
 
 const adjustForAnchorLinks = (inputString) => {
 	let pathEndIndex;
+	const slash = os.platform() === 'win32' ? '\\' : '/';
 	if(inputString.lastIndexOf('#') != inputString.length - 1 && inputString.lastIndexOf('#') > 0) {
-		pathEndIndex = inputString.lastIndexOf('\\');
+		pathEndIndex = inputString.lastIndexOf(slash);
 		const pathUptoAnchor = inputString.substring(0, pathEndIndex);
 		const lastPart = inputString.substring(pathEndIndex + 1);
 			
-		pathEndIndex = pathUptoAnchor.lastIndexOf('\\');
+		pathEndIndex = pathUptoAnchor.lastIndexOf(slash);
 		const pathBeforeAnchor = inputString.substring(0, pathEndIndex);
 		const anchor = pathUptoAnchor.substring(pathEndIndex + 1);
 		
-		const modifiedString = `${pathBeforeAnchor}\\${lastPart}${anchor}`;
+		const modifiedString = `${pathBeforeAnchor}${slash}${lastPart}${anchor}`;
 		return modifiedString;
 	} else {
 		return inputString;
