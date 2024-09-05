@@ -14,7 +14,7 @@ In Kubernetes v1.30 and later, the in-tree cloud providers have been removed. Ra
 
 To migrate from the in-tree cloud provider to the out-of-tree Azure cloud provider, you must stop the existing cluster's kube controller manager and install the Azure cloud controller manager.
 
-If it's acceptable to have some downtime during migration, follow the instructions to [set up an external cloud provider](../set-up-cloud-providers/azure.md#using-the-out-of-tree-azure-cloud-provider). These instructions outline how to configure the out-of-tree cloud provider for a newly provisioned cluster. During set up, there will be some downtime, as there is a time gap between when the old cloud provider stops running and when the new cloud provider starts to run.
+If it's acceptable to have some downtime during migration, follow the instructions to [set up an external cloud provider](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#using-the-out-of-tree-azure-cloud-provider). These instructions outline how to configure the out-of-tree cloud provider for a newly provisioned cluster. During set up, there will be some downtime, as there is a time gap between when the old cloud provider stops running and when the new cloud provider starts to run.
 
 If your setup can't tolerate any control plane downtime, you must enable leader migration. This facilitates a smooth transition from the controllers in the kube controller manager to their counterparts in the cloud controller manager.
 
@@ -60,9 +60,9 @@ kubectl cordon -l "node-role.kubernetes.io/control-plane=true"
 ```
 
 3. To deploy the Azure cloud controller manager, use any of the available options: 
-- UI: Follow steps 1-10 of [Helm chart installation from UI](../set-up-cloud-providers/azure.md#helm-chart-installation-from-ui) to install the cloud controller manager chart.
-- CLI: Follow steps 1-4 of [Helm chart installation from CLI](../set-up-cloud-providers/azure.md#helm-chart-installation-from-cli).
-- Update the cluster's additional manifest: Follow steps 2-3 to [install the cloud controller manager chart](../set-up-cloud-providers/azure.md#using-the-out-of-tree-azure-cloud-provider).
+- UI: Follow steps 1-10 of [Helm chart installation from UI](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#helm-chart-installation-from-ui) to install the cloud controller manager chart.
+- CLI: Follow steps 1-4 of [Helm chart installation from CLI](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#helm-chart-installation-from-cli).
+- Update the cluster's additional manifest: Follow steps 2-3 to [install the cloud controller manager chart](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#using-the-out-of-tree-azure-cloud-provider).
 
 Confirm that the chart is installed but that the new pods aren't running yet due to cordoned controlplane nodes.
 
@@ -154,8 +154,8 @@ kubectl cordon -l "node-role.kubernetes.io/controlplane=true"
 ```
 
 3. To install the Azure cloud controller manager, follow the same steps as when installing Azure cloud provider on a new cluster:
-- UI: Follow steps 1-10 of [Helm chart installation from UI](../set-up-cloud-providers/azure.md#helm-chart-installation-from-ui) to install the cloud controller manager chart.
-- CLI: Follow steps 1-4 of [Helm chart installation from CLI](../set-up-cloud-providers/azure.md#helm-chart-installation-from-cli) to install the cloud controller manager chart.
+- UI: Follow steps 1-10 of [Helm chart installation from UI](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#helm-chart-installation-from-ui) to install the cloud controller manager chart.
+- CLI: Follow steps 1-4 of [Helm chart installation from CLI](../../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure.md#helm-chart-installation-from-cli) to install the cloud controller manager chart.
 
 4. Confirm that the chart is installed but that the new pods aren't running yet due to cordoned controlplane nodes. After updating the cluster in the next step, RKE will upgrade and uncordon each node, and schedule `cloud-controller-manager` pods.
 

@@ -55,7 +55,7 @@ Node Templates can be accessed by opening your account menu (top right) and sele
 
 ### Why is my Layer-4 Load Balancer in `Pending` state?
 
-The Layer-4 Load Balancer is created as `type: LoadBalancer`. In Kubernetes, this needs a cloud provider or controller that can satisfy these requests, otherwise these will be in `Pending` state forever. More information can be found on [Cloud Providers](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/set-up-cloud-providers.md) or [Create External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
+The Layer-4 Load Balancer is created as `type: LoadBalancer`. In Kubernetes, this needs a cloud provider or controller that can satisfy these requests, otherwise these will be in `Pending` state forever. More information can be found on [Cloud Providers](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/set-up-cloud-providers.md) or [Create External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
 ### Where is the state of Rancher stored?
 
@@ -89,13 +89,13 @@ The UI consists of static files, and works based on responses of the API. That m
 
 A node is required to have a static IP configured (or a reserved IP via DHCP). If the IP of a node has changed, you will have to remove it from the cluster and readd it. After it is removed, Rancher will update the cluster to the correct state. If the cluster is no longer in `Provisioning` state, the node is removed from the cluster.
 
-When the IP address of the node changed, Rancher lost connection to the node, so it will be unable to clean the node properly. See [Cleaning cluster nodes](../how-to-guides/new-user-guides/manage-clusters/clean-cluster-nodes.md) to clean the node.
+When the IP address of the node changed, Rancher lost connection to the node, so it will be unable to clean the node properly. See [Cleaning cluster nodes](../../new_docs/cluster-administration/manage-clusters/clean-cluster-nodes.md) to clean the node.
 
 When the node is removed from the cluster, and the node is cleaned, you can readd the node to the cluster.
 
 ### How can I add more arguments/binds/environment variables to Kubernetes components in a Rancher Launched Kubernetes cluster?
 
-You can add more arguments/binds/environment variables via the [Config File](../reference-guides/cluster-configuration/rancher-server-configuration/rke1-cluster-configuration.md#rke-cluster-config-file-reference) option in Cluster Options. For more information, see the [Extra Args, Extra Binds, and Extra Environment Variables](https://rancher.com/docs/rke/latest/en/config-options/services/services-extras/) in the RKE documentation or browse the [Example Cluster.ymls](https://rancher.com/docs/rke/latest/en/example-yamls/).
+You can add more arguments/binds/environment variables via the [Config File](../../new_docs/installation-and-upgrade/rancher-server-configuration/rke1-cluster-configuration.md#rke-cluster-config-file-reference) option in Cluster Options. For more information, see the [Extra Args, Extra Binds, and Extra Environment Variables](https://rancher.com/docs/rke/latest/en/config-options/services/services-extras/) in the RKE documentation or browse the [Example Cluster.ymls](https://rancher.com/docs/rke/latest/en/example-yamls/).
 
 ### How do I check if my certificate chain is valid?
 

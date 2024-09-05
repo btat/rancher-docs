@@ -15,7 +15,7 @@ title: Rancher Equinix Metal Quick Start
 
 :::caution
 
-The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. The Docker install is not recommended for production environments. For comprehensive setup instructions, see [Installation](../../installation-and-upgrade/installation-and-upgrade.md).
+The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. The Docker install is not recommended for production environments. For comprehensive setup instructions, see [Installation](../../../../new_docs/installation-and-upgrade/installation-and-upgrade.md).
 
 :::
 
@@ -41,8 +41,8 @@ Begin deploying an Equinix Metal Host. Equinix Metal Servers can be provisioned 
 
 - When provisioning a new Equinix Metal Server via the CLI or API you will need to provide the following information: project-id, plan, metro, and operating-system.
 - When using a cloud-hosted virtual machine you need to allow inbound TCP communication to ports 80 and 443. Please see your cloud host's documentation for information regarding port configuration.
-- For a full list of port requirements, refer to [Docker Installation](../../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md).
-- Provision the host according to our [Requirements](../../installation-and-upgrade/installation-requirements/installation-requirements.md).
+- For a full list of port requirements, refer to [Docker Installation](../../../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md).
+- Provision the host according to our [Requirements](../../../../new_docs/installation-and-upgrade/requirements/installation-requirements.md).
 
 :::
 ### 2. Install Rancher

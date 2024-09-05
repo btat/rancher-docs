@@ -12,9 +12,9 @@ These instructions assume you have a Linux virtual machine that you will communi
 
 We don't recommend installing Rancher locally because it creates a networking problem. Installing Rancher on localhost does not allow Rancher to communicate with downstream Kubernetes clusters, so on localhost you wouldn't be able to test Rancher's cluster provisioning or cluster management functionality.
 
-Your Linux machine can be anywhere. It could be an Amazon EC2 instance, a Digital Ocean droplet, or an Azure virtual machine, to name a few examples. Other Rancher docs often use 'node' as a generic term for all of these. One possible way to deploy a Linux machine is by setting up an Amazon EC2 instance as shown in [this tutorial](../../../how-to-guides/new-user-guides/infrastructure-setup/nodes-in-amazon-ec2.md).
+Your Linux machine can be anywhere. It could be an Amazon EC2 instance, a Digital Ocean droplet, or an Azure virtual machine, to name a few examples. Other Rancher docs often use 'node' as a generic term for all of these. One possible way to deploy a Linux machine is by setting up an Amazon EC2 instance as shown in [this tutorial](../../../../new_docs/cluster-administration/infrastructure-setup/nodes-in-amazon-ec2.md).
 
-The full installation requirements are [here](../../installation-and-upgrade/installation-requirements/installation-requirements.md).
+The full installation requirements are [here](../../../../new_docs/installation-and-upgrade/requirements/installation-requirements.md).
 
 ## Install K3s on Linux
 
@@ -126,11 +126,11 @@ helm install cert-manager jetstack/cert-manager `
 
 The final command to install Rancher is below. The command requires a domain name that forwards traffic to the Linux machine. For the sake of simplicity in this tutorial, you can use a fake domain name to create your proof-of-concept. An example of a fake domain name would be `<IP_OF_LINUX_NODE>.sslip.io`.
 
-To install a specific Rancher version, use the `--version` flag (e.g., `--version 2.6.6`). Otherwise, the latest Rancher is installed by default. Refer to [Choosing a Rancher Version](../../installation-and-upgrade/resources/choose-a-rancher-version.md).
+To install a specific Rancher version, use the `--version` flag (e.g., `--version 2.6.6`). Otherwise, the latest Rancher is installed by default. Refer to [Choosing a Rancher Version](../../../../new_docs/installation-and-upgrade/resources/choose-a-rancher-version.md).
 
 For Kubernetes v1.25 or later, set `global.cattle.psp.enabled` to `false` when using Rancher v2.7.2-v2.7.4. This is not necessary for Rancher v2.7.5 and above, but you can still manually set the option if you choose.
 
-See [Setting up the Bootstrap Password](../../installation-and-upgrade/resources/bootstrap-password.md#password-requirements) for password requirments.
+See [Setting up the Bootstrap Password](../../../../new_docs/installation-and-upgrade/resources/bootstrap-password.md#password-requirements) for password requirments.
 
 ```
 helm install rancher rancher-latest/rancher \
@@ -151,6 +151,6 @@ Now if you navigate to `<IP_OF_LINUX_NODE>.sslip.io` in a web browser, you shoul
 
 To make these instructions simple, we used a fake domain name and self-signed certificates to do this installation. Therefore, you will probably need to add a security exception to your web browser to see the Rancher UI. Note that for production installs, you would need a high-availability setup with a load balancer, a real domain name and real certificates.
 
-These instructions also left out the full installation requirements and other installation options. If you have any issues with these steps, refer to the full [Helm CLI installation docs.](../../installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster/install-upgrade-on-a-kubernetes-cluster.md)
+These instructions also left out the full installation requirements and other installation options. If you have any issues with these steps, refer to the full [Helm CLI installation docs.](../../../../new_docs/installation-and-upgrade/installation/install-upgrade-on-a-kubernetes-cluster.md)
 
-To launch new Kubernetes clusters with your new Rancher server, you may need to set up cloud credentials in Rancher. For more information, see [Launching Kubernetes clusters with Rancher.](../../../how-to-guides/new-user-guides/launch-kubernetes-with-rancher/launch-kubernetes-with-rancher.md)
+To launch new Kubernetes clusters with your new Rancher server, you may need to set up cloud credentials in Rancher. For more information, see [Launching Kubernetes clusters with Rancher.](../../../../new_docs/cluster-administration/launch-kubernetes-with-rancher/launch-kubernetes-with-rancher.md)

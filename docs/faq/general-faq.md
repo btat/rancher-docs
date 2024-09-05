@@ -12,15 +12,15 @@ See the [Technical FAQ](technical-items.md) for frequently asked technical quest
 
 ## Is it possible to manage Azure Kubernetes Services with Rancher v2.x?
 
-Yes. See our [Cluster Administration](../how-to-guides/new-user-guides/manage-clusters/manage-clusters.md) guide for what Rancher features are available on AKS, as well as our [documentation on AKS](../getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster/rancher-on-aks.md).
+Yes. See our [Cluster Administration](../../new_docs/cluster-administration/manage-clusters/manage-clusters.md) guide for what Rancher features are available on AKS, as well as our [documentation on AKS](../../new_docs/installation-and-upgrade/installation/rancher-on-aks.md).
 
 ## Does Rancher support Windows?
 
-Yes. Rancher supports Windows Server 1809 containers. For details on how to set up a cluster with Windows worker nodes, refer to the section on [configuring custom clusters for Windows.](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/use-windows-clusters/use-windows-clusters.md)
+Yes. Rancher supports Windows Server 1809 containers. For details on how to set up a cluster with Windows worker nodes, refer to the section on [configuring custom clusters for Windows.](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/use-windows-clusters/use-windows-clusters.md)
 
 ## Does Rancher support Istio?
 
-Yes. Rancher supports [Istio](../integrations-in-rancher/istio/istio.md).
+Yes. Rancher supports [Istio](../../new_docs/observability/istio/istio.md).
 
 ## Will Rancher v2.x support Hashicorp's Vault for storing secrets?
 

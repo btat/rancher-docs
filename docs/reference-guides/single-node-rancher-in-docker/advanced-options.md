@@ -19,7 +19,7 @@ Use the command example to start a Rancher container with your private CA certif
 
 The example below is based on having the CA root certificates in the `/host/certs` directory on the host and mounting this directory on `/container/certs` inside the Rancher container.
 
-Privileged access is [required.](../../getting-started/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
+Privileged access is [required.](../../../new_docs/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
 
 ```
 docker run -d --restart=unless-stopped \
@@ -36,9 +36,9 @@ The API Audit Log records all the user and system transactions made through Ranc
 
 The API Audit Log writes to `/var/log/auditlog` inside the rancher container by default. Share that directory as a volume and set your `AUDIT_LEVEL` to enable the log.
 
-See [API Audit Log](../../how-to-guides/advanced-user-guides/enable-api-audit-log.md) for more information and options.
+See [API Audit Log](../../../new_docs/observability/logging/enable-api-audit-log.md) for more information and options.
 
-Privileged access is [required.](../../getting-started/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
+Privileged access is [required.](../../../new_docs/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
 
 ```
 docker run -d --restart=unless-stopped \
@@ -61,9 +61,9 @@ docker run -d --restart=unless-stopped \
   rancher/rancher:latest
 ```
 
-Privileged access is [required.](../../getting-started/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
+Privileged access is [required.](../../../new_docs/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
 
-See [TLS settings](../../getting-started/installation-and-upgrade/installation-references/tls-settings.md) for more information and options.
+See [TLS settings](../../../new_docs/installation-and-upgrade/installation-references/tls-settings.md) for more information and options.
 
 ### Air Gap
 
@@ -87,7 +87,7 @@ docker run -d --restart=unless-stopped \
   rancher/rancher:latest
 ```
 
-Privileged access is [required.](../../getting-started/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
+Privileged access is [required.](../../../new_docs/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
 
 ### Running `rancher/rancher` and `rancher/rancher-agent` on the Same Node
 
@@ -106,4 +106,4 @@ docker run -d --restart=unless-stopped \
   rancher/rancher:latest
 ```
 
-Privileged access is [required.](../../getting-started/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)
+Privileged access is [required.](../../../new_docs/installation-and-upgrade/other-installation-methods/rancher-on-a-single-node-with-docker/rancher-on-a-single-node-with-docker.md#privileged-access-for-rancher)

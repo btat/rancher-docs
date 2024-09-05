@@ -8,7 +8,7 @@ title: Rancher Deployment Quick Start Guides
 
 :::caution
 
-The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. These guides are not intended for production environments. For comprehensive setup instructions, see [Installation](../installation-and-upgrade/installation-and-upgrade.md).
+The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. These guides are not intended for production environments. For comprehensive setup instructions, see [Installation](../../../new_docs/installation-and-upgrade/installation-and-upgrade.md).
 
 :::
 

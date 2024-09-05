@@ -61,7 +61,7 @@ Canal is a CNI network provider that gives you the best of Flannel and Calico. I
 
 In Rancher, Canal is the default CNI network provider combined with Flannel and VXLAN encapsulation.
 
-Kubernetes workers should open UDP port `8472` (VXLAN) and TCP port `9099` (health checks). If using Wireguard, you should open UDP ports `51820` and `51821`. For more details, refer to [the port requirements for user clusters](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md).
+Kubernetes workers should open UDP port `8472` (VXLAN) and TCP port `9099` (health checks). If using Wireguard, you should open UDP ports `51820` and `51821`. For more details, refer to [the port requirements for user clusters](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md).
 
 ![](/img/canal-diagram.png)
 
@@ -78,7 +78,7 @@ Encapsulated traffic is unencrypted by default. Flannel provides two solutions f
 * [IPSec](https://github.com/flannel-io/flannel/blob/master/Documentation/backends.md#ipsec), which makes use of [strongSwan](https://www.strongswan.org/) to establish encrypted IPSec tunnels between Kubernetes workers. It is an experimental backend for encryption.
 * [WireGuard](https://github.com/flannel-io/flannel/blob/master/Documentation/backends.md#wireguard), which is a more faster-performing alternative to strongSwan.
 
-Kubernetes workers should open UDP port `8472` (VXLAN). See [the port requirements for user clusters](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
+Kubernetes workers should open UDP port `8472` (VXLAN). See [the port requirements for user clusters](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
 
 ![Flannel Diagram](/img/flannel-diagram.png)
 
@@ -92,7 +92,7 @@ For more information, see the [Flannel GitHub Page](https://github.com/flannel-i
 
 Weave enables networking and network policy in Kubernetes clusters across the cloud. Additionally, it support encrypting traffic between the peers.
 
-Kubernetes workers should open TCP port `6783` (control port), UDP port `6783` and UDP port `6784` (data ports). See the [port requirements for user clusters](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
+Kubernetes workers should open TCP port `6783` (control port), UDP port `6783` and UDP port `6784` (data ports). See the [port requirements for user clusters](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
 
 For more information, see the following pages:
 
@@ -112,7 +112,7 @@ Calico enables networking and network policy in Kubernetes clusters across the c
 
 Calico also provides a stateless IP-in-IP or VXLAN encapsulation mode that can be used, if necessary. Calico also offers policy isolation, allowing you to secure and govern your Kubernetes workloads using advanced ingress and egress policies.
 
-Kubernetes workers should open TCP port `179` if using BGP or UDP port `4789` if using VXLAN encapsulation. In addition, TCP port `5473` is needed when using Typha. See [the port requirements for user clusters](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
+Kubernetes workers should open TCP port `179` if using BGP or UDP port `4789` if using VXLAN encapsulation. In addition, TCP port `5473` is needed when using Typha. See [the port requirements for user clusters](../../new_docs/cluster-administration/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for more details.
 
 :::note Important:
 
@@ -196,4 +196,4 @@ Canal is the default CNI network provider. We recommend it for most use cases. I
 
 ## How can I configure a CNI network provider?
 
-Please see [Cluster Options](../reference-guides/cluster-configuration/rancher-server-configuration/rke1-cluster-configuration.md) on how to configure a network provider for your cluster. For more advanced configuration options, please see how to configure your cluster using a [Config File](../reference-guides/cluster-configuration/rancher-server-configuration/rke1-cluster-configuration.md#rke-cluster-config-file-reference) and the options for [Network Plug-ins](https://rancher.com/docs/rke/latest/en/config-options/add-ons/network-plugins/).
+Please see [Cluster Options](../../new_docs/installation-and-upgrade/rancher-server-configuration/rke1-cluster-configuration.md) on how to configure a network provider for your cluster. For more advanced configuration options, please see how to configure your cluster using a [Config File](../../new_docs/installation-and-upgrade/rancher-server-configuration/rke1-cluster-configuration.md#rke-cluster-config-file-reference) and the options for [Network Plug-ins](https://rancher.com/docs/rke/latest/en/config-options/add-ons/network-plugins/).

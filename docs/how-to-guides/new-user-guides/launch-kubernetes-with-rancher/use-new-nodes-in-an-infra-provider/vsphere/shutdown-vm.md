@@ -39,7 +39,7 @@ In RKE, you can't directly configure a new cluster with graceful shutdown. Howev
 1. Click **Add Template** and select **vSphere** to create a node template.
 1. Under **2. Scheduling**, in the **Graceful Shutdown Timeout** field, enter an integer value greater than 0. The value you enter is the amount of time in seconds Rancher waits before deleting VMs on the cluster. If the value is set to `0`, graceful shutdown is disabled.
 
-When you [use the newly-created node template to create node pools](../use-new-nodes-in-an-infra-provider.md), the nodes will gracefully shutdown of VMs according to the **Graceful Shutdown Timeout** value you have set.
+When you [use the newly-created node template to create node pools](../../../../../../new_docs/cluster-administration/launch-kubernetes-with-rancher/use-new-nodes-in-an-infra-provider/use-new-nodes-in-an-infra-provider.md), the nodes will gracefully shutdown of VMs according to the **Graceful Shutdown Timeout** value you have set.
 
 </TabItem>
 </Tabs>
@@ -54,7 +54,7 @@ In RKE2/K3s, you can edit the configuration of an existing VMware vSphere cluste
 
 ## Enable Graceful Shutdown in Existing RKE Clusters
 
-In RKE, you can't directly edit an existing cluster's configuration to add graceful shutdown to existing VMware vSphere clusters. However, you can edit the configuration of existing node templates. As noted in [Updating a Node Template](../../../../../reference-guides/user-settings/manage-node-templates.md#updating-a-node-template), all node pools using the node template automatically use the updated information when new nodes are added to the cluster.
+In RKE, you can't directly edit an existing cluster's configuration to add graceful shutdown to existing VMware vSphere clusters. However, you can edit the configuration of existing node templates. As noted in [Updating a Node Template](../../../../../../new_docs/rancher-administration/user-settings/manage-node-templates.md#updating-a-node-template), all node pools using the node template automatically use the updated information when new nodes are added to the cluster.
 
 To edit an existing node template to enable graceful shutdown:
 

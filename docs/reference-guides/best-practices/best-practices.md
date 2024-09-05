@@ -14,7 +14,7 @@ Use the navigation bar on the left to find the current best practices for managi
 
 For more guidance on best practices, you can consult these resources:
 
-- [Security](../rancher-security/rancher-security.md)
+- [Security](../../../new_docs/security/security-overview.md)
 - [Rancher Blog](https://www.suse.com/c/rancherblog/)
 - [Rancher Forum](https://forums.rancher.com/)
 - [Rancher Users Slack](https://slack.rancher.io/)

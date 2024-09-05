@@ -11,7 +11,7 @@ The following steps will quickly deploy a Rancher server on Azure in a single-no
 
 :::caution
 
-The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. These guides are not intended for production environments. For comprehensive setup instructions, see [Installation](../../installation-and-upgrade/installation-and-upgrade.md).
+The intent of these guides is to quickly launch a sandbox that you can use to evaluate Rancher. These guides are not intended for production environments. For comprehensive setup instructions, see [Installation](../../../../new_docs/installation-and-upgrade/installation-and-upgrade.md).
 
 :::
 
@@ -43,7 +43,7 @@ Deploying to Microsoft Azure will incur charges.
     - `azure_client_id` - Microsoft Azure Client ID
     - `azure_client_secret` - Microsoft Azure Client Secret
     - `azure_tenant_id` - Microsoft Azure Tenant ID
-    - `rancher_server_admin_password` - Admin password for created Rancher server. See [Setting up the Bootstrap Password](../../installation-and-upgrade/resources/bootstrap-password.md#password-requirements) for password requirments.
+    - `rancher_server_admin_password` - Admin password for created Rancher server. See [Setting up the Bootstrap Password](../../../../new_docs/installation-and-upgrade/resources/bootstrap-password.md#password-requirements) for password requirments.
 
 5. **Optional:** Modify optional variables within `terraform.tfvars`.
 See the [Quickstart Readme](https://github.com/rancher/quickstart) and the [Azure Quickstart Readme](https://github.com/rancher/quickstart/tree/master/rancher/azure) for more information. Suggestions include:
