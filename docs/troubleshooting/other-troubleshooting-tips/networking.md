@@ -12,7 +12,7 @@ Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG
 
 ## Double Check if All the Required Ports are Opened in Your (Host) Firewall
 
-Double check if all the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) are opened in your (host) firewall. The overlay network uses UDP in comparison to all other required ports which are TCP.
+Double check if all the [required ports](../../cluster-deployment/node-requirements.md#networking-requirements) are opened in your (host) firewall. The overlay network uses UDP in comparison to all other required ports which are TCP.
 
 
 ## Check if Overlay Network is Functioning Correctly
@@ -95,7 +95,7 @@ The `swiss-army-knife` container does not support Windows nodes. It also [does n
     wk1 can reach wk1
     => End network overlay test
     ```
-    If you see error in the output, there is some issue with the route between the pods on the two hosts.  In the above output the node `wk2` has no connectivity over the overlay network. This could be because the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for overlay networking are not opened for `wk2`.
+    If you see error in the output, there is some issue with the route between the pods on the two hosts.  In the above output the node `wk2` has no connectivity over the overlay network. This could be because the [required ports](../../cluster-deployment/node-requirements.md#networking-requirements) for overlay networking are not opened for `wk2`.
 6. You can now clean up the DaemonSet by running `kubectl delete ds/overlaytest`.
 
 
