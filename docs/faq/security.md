@@ -1,5 +1,6 @@
 ---
 title: Security FAQ
+
 ---
 
 <head>
@@ -8,11 +9,11 @@ title: Security FAQ
 
 ## Is there a Hardening Guide?
 
-The Hardening Guide is located in the main [Security](../reference-guides/rancher-security/rancher-security.md) section.
+The Hardening Guide is located in the main [Security](../security/security-overview.md) section.
 
 ## Have hardened Rancher Kubernetes clusters been evaluated by the CIS Kubernetes Benchmark? Where can I find the results?
 
-We have run the CIS Kubernetes benchmark against a hardened Rancher Kubernetes cluster.  The results of that assessment can be found in the main [Security](../reference-guides/rancher-security/rancher-security.md) section.
+We have run the CIS Kubernetes benchmark against a hardened Rancher Kubernetes cluster.  The results of that assessment can be found in the main [Security](../security/security-overview.md) section.
 
 ## How does Rancher verify communication with downstream clusters, and what are some associated security concerns?
 

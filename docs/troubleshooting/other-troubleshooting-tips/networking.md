@@ -10,18 +10,17 @@ The commands/steps listed on this page can be used to check networking related i
 
 Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
 
-## Double Check if All the Required Ports are Opened in Your (Host) Firewall
+## Double check if all the required ports are opened in your (host) firewall
 
-Double check if all the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) are opened in your (host) firewall. The overlay network uses UDP in comparison to all other required ports which are TCP.
+Double check if all the [required ports](../../cluster-deployment/node-requirements.md#networking-requirements) are opened in your (host) firewall. The overlay network uses UDP in comparison to all other required ports which are TCP.
 
-
-## Check if Overlay Network is Functioning Correctly
+## Check if overlay network is functioning correctly
 
 The pod can be scheduled to any of the hosts you used for your cluster, but that means that the NGINX ingress controller needs to be able to route the request from `NODE_1` to `NODE_2`. This happens over the overlay network. If the overlay network is not functioning, you will experience intermittent TCP/HTTP connection failures due to the NGINX ingress controller not being able to route to the pod.
 
 To test the overlay network, you can launch the following `DaemonSet` definition. This will run a `swiss-army-knife` container on every host (image was developed by Rancher engineers and can be found here: https://github.com/rancherlabs/swiss-army-knife), which we will use to run a `ping` test between containers on all hosts.
 
-:::caution
+:::note
 
 The `swiss-army-knife` container does not support Windows nodes. It also [does not support ARM nodes](https://github.com/leodotcloud/swiss-army-knife/issues/18), such as a Raspberry Pi. When the test encounters incompatible nodes, this is recorded in the pod logs as an error message, such as `exec user process caused: exec format error` for ARM nodes, or `ImagePullBackOff (Back-off pulling image "rancherlabs/swiss-army-knife)` for Windows nodes.
 
@@ -95,11 +94,11 @@ The `swiss-army-knife` container does not support Windows nodes. It also [does n
     wk1 can reach wk1
     => End network overlay test
     ```
-    If you see error in the output, there is some issue with the route between the pods on the two hosts.  In the above output the node `wk2` has no connectivity over the overlay network. This could be because the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for overlay networking are not opened for `wk2`.
+    If you see error in the output, there is some issue with the route between the pods on the two hosts.  In the above output the node `wk2` has no connectivity over the overlay network. This could be because the [required ports](../../cluster-deployment/node-requirements.md#networking-requirements) for overlay networking are not opened for `wk2`.
 6. You can now clean up the DaemonSet by running `kubectl delete ds/overlaytest`.
 
 
-### Check if MTU is Correctly Configured on Hosts and on Peering/Tunnel Appliances/Devices
+## Check if MTU is Correctly Configured on Hosts and on Peering/Tunnel Appliances/Devices
 
 When the MTU is incorrectly configured (either on hosts running Rancher, nodes in created/imported clusters or on appliances/devices in between), error messages will be logged in Rancher and in the agents, similar to:
 

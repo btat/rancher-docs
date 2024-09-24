@@ -31,11 +31,11 @@ This section contains information to help you troubleshoot issues when using Ran
 
     When you experience name resolution issues in your cluster.
 
-- [Troubleshooting Rancher installed on Kubernetes](other-troubleshooting-tips/rancher-ha.md)
+- [Troubleshooting Rancher installed on Kubernetes](../installation-and-upgrade/troubleshooting/rancher-ha.md)
 
-    If you experience issues with your [Rancher server installed on Kubernetes](../getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster/install-upgrade-on-a-kubernetes-cluster.md)
+    If you experience issues with your [Rancher server installed on Kubernetes](../installation-and-upgrade/install-rancher.md)
 
-- [Logging](other-troubleshooting-tips/logging.md)
+- [Logging](../observability/logging/troubleshooting.md)
 
     Read more about what log levels can be configured and how to configure a log level.
 
@@ -43,6 +43,6 @@ This section contains information to help you troubleshoot issues when using Ran
 
     Read more about how a Rancher Admin can trace an event from the Rancher audit logs and into the Kubernetes audit logs using the external Identity Provider username.
 
-- [Expired Webhook Certificates](other-troubleshooting-tips/expired-webhook-certificate-rotation.md)  
+- [Expired Webhook Certificates](../security/rancher-webhook/expired-webhook-certificate-rotation.md)  
 
     Read more about how to rotate a Rancher webhook certificate secret after it expires on an annual basis.
