@@ -1,21 +1,21 @@
 ---
-title: Kubernetes Components
+title: Kubernetes 组件
 ---
 
 <head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/kubernetes-components"/>
+  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/zh/troubleshooting/kubernetes-components"/>
 </head>
 
-The commands and steps listed in this section apply to the core Kubernetes components on [Rancher Launched Kubernetes](../../how-to-guides/new-user-guides/launch-kubernetes-with-rancher/launch-kubernetes-with-rancher.md) clusters.
+本文列出的命令和步骤适用于 [Rancher 启动的 Kubernetes](../../cluster-deployment/launch-kubernetes-with-rancher.md) 集群上的核心 Kubernetes 组件。
 
-This section includes troubleshooting tips in the following categories:
+本文包括以下类别的故障排除提示：
 
-- [Troubleshooting etcd Nodes](troubleshooting-etcd-nodes.md)
-- [Troubleshooting Controlplane Nodes](troubleshooting-controlplane-nodes.md)
-- [Troubleshooting nginx-proxy Nodes](troubleshooting-nginx-proxy.md)
-- [Troubleshooting Worker Nodes and Generic Components](troubleshooting-worker-nodes-and-generic-components.md)
+- [etcd 节点故障排除](troubleshooting-etcd-nodes.md)
+- [Controlplane 节点故障排除](troubleshooting-controlplane-nodes.md)
+- [nginx-proxy 节点故障排除](troubleshooting-nginx-proxy.md)
+- [Worker 节点和通用组件故障排除](troubleshooting-worker-nodes-and-generic-components.md)
 
-## Kubernetes Component Diagram
+## Kubernetes 组件图
 
-![Cluster diagram](/img/clusterdiagram.svg)<br/>
-<sup>Lines show the traffic flow between components. Colors are used purely for visual aid</sup>
+![集群图](/img/clusterdiagram.svg)<br/>
+<sup>线条表示组件之间的通信。而颜色纯粹用于视觉辅助。</sup>

@@ -1,140 +1,136 @@
 ---
-title: Contributing to Rancher
+title: 参与 Rancher 社区贡献
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/contribute-to-rancher"/>
-</head>
+本文介绍了 Rancher 仓库和 Rancher 文档、如何构建 Rancher 仓库以及提交 issue 时要包含哪些信息。
 
-Learn about the repositories used for Rancher and Rancher docs, how to build Rancher repositories, and what information to include when you file an issue.
+有关如何为 Rancher 项目开发做出贡献的更多详细信息，请参阅 [Rancher Developer Wiki](https://github.com/rancher/rancher/wiki)。Wiki 包含以下主题的资源：
 
-For more detailed information on how to contribute to the development of Rancher projects, refer to the [Rancher Developer Wiki](https://github.com/rancher/rancher/wiki). The wiki has resources on many topics, including the following:
+- 如何搭建 Rancher 开发环境并运行测试
+- Issue 在开发生命周期中的典型流程
+- 编码指南和开发最佳实践
+- 调试和故障排除
+- 开发 Rancher API
 
-- How to set up the Rancher development environment and run tests
-- The typical flow of an issue through the development lifecycle
-- Coding guidelines and development best practices
-- Debugging and troubleshooting
-- Developing the Rancher API
+在 Rancher Users Slack 上，开发者的频道是 **#developer**。
 
-On the Rancher Users Slack, the channel for developers is **#developer**.
+## Rancher 文档
 
-## Rancher Docs
+如果你对此网站上的文档有建议，请在主 [Rancher 文档](https://github.com/rancher/rancher-docs)仓库中[提交 issue](https://github.com/rancher/rancher-docs/issues/new/choose)。此仓库包含 Rancher v2.0 及更高版本的文档。
 
-If you have suggestions for the documentation on this website, [open](https://github.com/rancher/rancher-docs/issues/new/choose) an issue in the main [Rancher docs](https://github.com/rancher/rancher-docs) repository. This repo contains documentation for Rancher v2.0 and later.
+有关贡献和构建 Rancher v2.x 文档仓库的更多详细信息，请参阅 [Rancher 文档 README](https://github.com/rancher/rancher-docs#readme)。
 
-See the [Rancher docs README](https://github.com/rancher/rancher-docs#readme) for more details on contributing to and building the Rancher v2.x docs repo.
+有关 Rancher v1.6 及更早版本的文档，请参阅 [Rancher 1.x docs](https://github.com/rancher/rancher.github.io) 仓库，其中包含 https://rancher.com/docs/rancher/v1.6/en/ 的源文件。
 
-For documentation describing Rancher v1.6 and earlier, see the [Rancher 1.x docs](https://github.com/rancher/rancher.github.io) repo, which contains source files for https://rancher.com/docs/rancher/v1.6/en/.
+## Rancher 仓库
 
-## Rancher Repositories
+所有仓库都位于我们的主要 GitHub 组织内。Rancher 使用了很多仓库，以下是部分主要仓库的描述：
 
-All of repositories are located within our main GitHub organization. There are many repositories used for Rancher, but we'll provide descriptions of some of the main ones used in Rancher.
-
-Repository | URL | Description
+| 仓库 | URL | 描述 |
 -----------|-----|-------------
-Rancher | https://github.com/rancher/rancher | This repository is the main source code for Rancher 2.x.
-Types | https://github.com/rancher/types | This repository is the repository that has all the API types for Rancher 2.x.
-API Framework | https://github.com/rancher/norman | This repository is an API framework for building Rancher style APIs backed by Kubernetes Custom Resources.
-User Interface | https://github.com/rancher/dashboard/ | This repository is the source of the Dashboard UI.
-(Rancher) Docker Machine | https://github.com/rancher/machine | This repository is the source of the Docker Machine binary used when using Node Drivers. This is a fork of the `docker/machine` repository.
-machine-package | https://github.com/rancher/machine-package | This repository is used to build the Rancher Docker Machine binary.
-kontainer-engine | https://github.com/rancher/kontainer-engine | This repository is the source of kontainer-engine, the tool to provision hosted Kubernetes clusters.
-RKE repository | https://github.com/rancher/rke | This repository is the source of Rancher Kubernetes Engine, the tool to provision Kubernetes clusters on any machine.
-CLI | https://github.com/rancher/cli | This repository is the source code for the Rancher CLI used in Rancher 2.x.
-(Rancher) Helm repository | https://github.com/rancher/helm | This repository is the source of the packaged Helm binary. This is a fork of the `helm/helm` repository.
-Telemetry repository | https://github.com/rancher/telemetry | This repository is the source for the Telemetry binary.
-loglevel repository | https://github.com/rancher/loglevel | This repository is the source of the loglevel binary, used to dynamically change log levels.
+| Rancher | https://github.com/rancher/rancher | Rancher 2.x 的主要源码仓库。 |
+| Types | https://github.com/rancher/types | 包含 Rancher 2.x 的所有 API 类型的仓库。 |
+| API Framework | https://github.com/rancher/norman | API 框架，用于构建由 Kubernetes 自定义资源支持的 Rancher 风格的 API。 |
+| User Interface | https://github.com/rancher/dashboard/ | Dashboard UI 源码仓库。 |
+| (Rancher) Docker Machine | https://github.com/rancher/machine | 使用主机驱动时使用的 Docker Machine 二进制文件的源码仓库。这是 `docker/machine` 仓库的一个 fork。 |
+| machine-package | https://github.com/rancher/machine-package | 用于构建 Rancher Docker Machine 二进制文件。 |
+| kontainer-engine | https://github.com/rancher/kontainer-engine | kontainer-engine 的源码仓库，它是配置托管 Kubernetes 集群的工具。 |
+| RKE repository | https://github.com/rancher/rke | Rancher Kubernetes Engine 的源码仓库，该工具可在任何主机上配置 Kubernetes 集群。 |
+| CLI | https://github.com/rancher/cli | Rancher 2.x 中使用的 Rancher CLI 的源码仓库。 |
+| (Rancher) Helm repository | https://github.com/rancher/helm | 打包的 Helm 二进制文件的源码仓库。这是 `helm/helm` 仓库的一个 fork。 |
+| Telemetry repository | https://github.com/rancher/telemetry | Telemetry 二进制文件的源码仓库。 |
+| loglevel repository | https://github.com/rancher/loglevel | loglevel 二进制文件的源码仓库，用于动态更改日志级别。 |
 
-To see all libraries/projects used in Rancher, see the [`go.mod` file](https://github.com/rancher/rancher/blob/master/go.mod) in the `rancher/rancher` repository.
+要查看 Rancher 使用的所有库/项目，请查看 `rancher/rancher` 仓库中的 [`go.mod` 文件](https://github.com/rancher/rancher/blob/master/go.mod)。
 
 ![Rancher diagram](/img/ranchercomponentsdiagram-2.6.svg)<br/>
-<sup>Rancher components used for provisioning/managing Kubernetes clusters.</sup>
+<sup>用于配置/管理 Kubernetes 集群的 Rancher 组件。</sup>
 
-### Building Rancher Repositories
+### 构建 Rancher 仓库
 
-Every repository should have a Makefile and can be built using the `make` command. The `make` targets are based on the scripts in the `/scripts` directory in the repository, and each target will use [Dapper](https://github.com/rancher/dapper) to run the target in an isolated environment. The `Dockerfile.dapper` will be used for this process, and includes all the necessary build tooling needed.
+每个仓库都应该有一个 Makefile，并且可以使用 `make` 命令进行构建。`make` 目标基于仓库中 `/scripts` 目录中的脚本，每个目标都使用 [Dapper](https://github.com/rancher/dapper) 在孤立的环境中运行。`Dockerfile.dapper` 将用于此操作，它包含了所需的所有构建工具。
 
-The default target is `ci`, and will run `./scripts/validate`, `./scripts/build`, `./scripts/test` and `./scripts/package`. The resulting binaries of the build will be in `./build/bin` and are usually also packaged in a Docker image.
+默认目标是 `ci`，它将运行 `./scripts/validate`、`./scripts/build`、`./scripts/test ` 和 `./scripts/package`。生成的二进制文件将在 `./build/bin` 中，通常也打包在 Docker 镜像中。
 
-### Rancher Bugs, Issues or Questions
+### Rancher Bug、Issue 或疑问
 
-If you find any bugs or are having any trouble, please search the [reported issue](https://github.com/rancher/rancher/issues) as someone may have experienced the same issue or we are actively working on a solution.
+如果你发现任何 bug 或问题，由于有人可能遇到过同样的问题，或者我们已经正在寻找解决方案，因此请先在[已报告 issue](https://github.com/rancher/rancher/issues) 中搜索。
 
-If you can't find anything related to your issue, contact us by [filing an issue](https://github.com/rancher/rancher/issues/new). Though we have many repositories related to Rancher, we want the bugs filed in the Rancher repository so we won't miss them! If you want to ask a question or ask fellow users about an use case, we suggest creating a post on the [Rancher Forums](https://forums.rancher.com).
+如果找不到与你的问题相关的内容，请通过[提出 issue](https://github.com/rancher/rancher/issues/new) 与我们联系。与 Rancher 相关的仓库有很多，但请将 issue 提交到 Rancher 仓库中，这样能确保我们能看到这些 issue。如果你想就一个用例提出问题或询问其他用户，你可以在 [Rancher 论坛](https://forums.rancher.com)上发帖。
 
-#### Checklist for Filing Issues
+#### 提交 Issue 的检查清单
 
-Please follow this checklist when filing an issue which will helps us investigate and fix the issue. More info means more data we can use to determine what is causing the issue or what might be related to the issue.
+提交问题时请遵循此清单，以便我们调查和解决问题。如果你能提供更多信息，我们就可以使用更多数据来确定导致问题的原因或发现更多相关的内容。
 
 :::note
 
-For large amounts of data, please use [GitHub Gist](https://gist.github.com/) or similar and link the created resource in the issue.
+如果数据量很大，请使用 [GitHub Gist](https://gist.github.com/) 或类似工具，并在 issue 中链接你创建的资源。
 
 :::
 
-:::note Important:
+:::note 重要提示：
 
-Please remove any sensitive data as it will be publicly viewable.
+请删除所有敏感数据。
 
 :::
 
-- **Resources:** Provide as much as detail as possible on the used resources. As the source of the issue can be many things, including as much of detail as possible helps to determine the root cause. See some examples below:
-  - **Hosts:** What specifications does the host have, like CPU/memory/disk, what cloud does it happen on, what Amazon Machine Image are you using, what DigitalOcean droplet are you using, what image are you provisioning that we can rebuild or use when we try to reproduce
-  - **Operating System:** What operating system are you using? Providing specifics helps here like the output of `cat /etc/os-release` for exact OS release and `uname -r` for exact kernel used
-  - **Docker:** What Docker version are you using, how did you install it? Most of the details of Docker can be found by supplying output of `docker version` and `docker info`
-  - **Environment:** Are you in a proxy environment, are you using recognized CA/self signed certificates, are you using an external loadbalancer
-  - **Rancher:** What version of Rancher are you using, this can be found on the bottom left of the UI or be retrieved from the image tag you are running on the host
-  - **Clusters:** What kind of cluster did you create, how did you create it, what did you specify when you were creating it
-- **Steps to reproduce the issue:** Provide as much detail on how you got into the reported situation. This helps the person to reproduce the situation you are in.
-  - Provide manual steps or automation scripts used to get from a newly created setup to the situation you reported.
-- **Logs:** Provide data/logs from the used resources.
-    - Rancher
-        - Docker install
+- **资源**：请尽量详细地提供所使用的资源。导致问题的原因可能很多，因此请尽量提供更多细节来帮助我们确定根本原因。下面是一些参考示例：
+   - **主机**：主机的规格（例如 CPU/内存/磁盘），运行在什么云厂商上，使用的 Amazon Machine Image，使用的 DigitalOcean droplet，配置的镜像（复现时用于重新构建或使用）。
+   - **操作系统**：使用的是什么操作系统。在此处提供详细信息，例如 `cat /etc/os-release` 的输出（确切的操作系统版本）和 `uname -r` 的输出（确切的内核）。
+   - **Docker**：使用的 Docker 版本以及安装的方法。Docker 的大部分详情都可以在 `docker version` 和 `docker info` 的输出中找到。
+   - **环境**：是否使用了代理，是否使用可信的 CA/自签名证书，是否使用了外部负载均衡器。
+   - **Rancher**：使用的 Rancher 版本，可以在 UI 左下角或者从主机运行的 image 标签中获取。
+   - **集群**：创建了什么样的集群，如何创建的，在创建时指定了什么参数。
+- **复现 issue 的步骤**：尽量详细地说明你是如何触发所报告的情况的。这有助于复现你的情况。
+   - 提供从创建到你报告的情况使用的手动步骤或自动化脚本。
+- **日志**：提供使用资源的数据/日志。
+   - Rancher
+      - Docker 安装
 
-        ```
-        docker logs \
-        --timestamps \
-        $(docker ps | grep -E "rancher/rancher:|rancher/rancher " | awk '{ print $1 }')
-        ```
-        - Kubernetes install using `kubectl`
+      ```
+      docker logs \
+      --timestamps \
+      $(docker ps | grep -E "rancher/rancher:|rancher/rancher " | awk '{ print $1 }')
+      ```
+      - 使用 `kubectl` 的 Kubernetes 安装
 
-        :::note
+      :::note
 
-        Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_cluster.yml` if Rancher is installed on a Kubernetes cluster) or are using the embedded kubectl via the UI.
+      确保你配置了正确的 kubeconfig（例如，如果 Rancher 安装在 Kubernetes 集群上，则 `export KUBECONFIG=$PWD/kube_config_cluster.yml`）或通过 UI 使用了嵌入式 kubectl。
 
-        :::
+      :::
 
-        ```
-        kubectl -n cattle-system \
-        logs \
-        -l app=rancher \
-        --timestamps=true
-        ```
-        - Docker install using `docker` on each of the nodes in the RKE cluster
+      ```
+      kubectl -n cattle-system \
+      logs \
+      -l app=rancher \
+      --timestamps=true
+      ```
+      - 在 RKE 集群的每个节点上使用 `docker` 的 Docker 安装
 
-        ```
-        docker logs \
-        --timestamps \
-        $(docker ps | grep -E "rancher/rancher@|rancher_rancher" | awk '{ print $1 }')
-        ```
-        - Kubernetes Install with RKE Add-On
+      ```
+      docker logs \
+      --timestamps \
+      $(docker ps | grep -E "rancher/rancher@|rancher_rancher" | awk '{ print $1 }')
+      ```
+      - 使用 RKE 附加组件的 Kubernetes 安装
 
-        :::note
+      :::note
 
-        Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_cluster.yml` if the Rancher server is installed on a Kubernetes cluster) or are using the embedded kubectl via the UI.
+      确保你配置了正确的 kubeconfig（例如，如果 Rancher Server 安装在 Kubernetes 集群上，则 `export KUBECONFIG=$PWD/kube_config_cluster.yml`）或通过 UI 使用了嵌入式 kubectl。
 
-        :::
+      :::
 
-        ```
-        kubectl -n cattle-system \
-        logs \
-        --timestamps=true \
-        -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
-        ```
-    - System logging (these might not all exist, depending on operating system)
-        - `/var/log/messages`
-        - `/var/log/syslog`
-        - `/var/log/kern.log`
-    - Docker daemon logging (these might not all exist, depending on operating system)
-        - `/var/log/docker.log`
-- **Metrics:** If you are experiencing performance issues, please provide as much of data (files or screenshots) of metrics which can help determining what is going on. If you have an issue related to a machine, it helps to supply output of `top`, `free -m`, `df` which shows processes/memory/disk usage.
+      ```
+      kubectl -n cattle-system \
+      logs \
+      --timestamps=true \
+      -f $(kubectl --kubeconfig $KUBECONFIG get pods -n cattle-system -o json | jq -r '.items[] | select(.spec.containers[].name="cattle-server") | .metadata.name')
+      ```
+   - 系统日志记录（可能不存在，取决于操作系统）
+      - `/var/log/messages`
+      - `/var/log/syslog`
+      - `/var/log/kern.log`
+   - Docker Daemon 日志记录（可能并不全部存在，取决于操作系统）
+      - `/var/log/docker.log`
+- **指标**：如果你遇到性能问题，请提供尽可能多的指标数据（文件或屏幕截图）来帮助我们确定问题。如果你遇到主机相关的问题，你可以提供 `top`、`free -m`、`df` 的输出，这些输出会显示进程/内存/磁盘的使用情况。

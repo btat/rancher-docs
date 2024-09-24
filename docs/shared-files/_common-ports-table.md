@@ -1,18 +1,19 @@
-| Protocol 	|       Port       	| Description                                     	                                          |
-|:--------:	|:----------------:	|---------------------------------------------------------------------------------------------|
-|    TCP   	|         22      	| Node driver SSH provisioning                    	                                          |
-|    TCP    |        179        | Calico BGP Port                                                                             |
-|    TCP   	|       2376       	| Node driver Docker daemon TLS port              	                                          |
-|    TCP   	|       2379       	| etcd client requests                           	                                          |
-|    TCP   	|       2380       	| etcd peer communication                         	                                          |
-|    UDP   	|       8472       	| Canal/Flannel VXLAN overlay networking          	                                          |
-|    UDP   	|       4789       	| Flannel VXLAN overlay networking on Windows cluster                                         |
-|    TCP   	|       8443       	| Rancher webhook                                                                             |
-|    TCP   	|       9099       	| Canal/Flannel livenessProbe/readinessProbe      	                                          |
-|    TCP   	|       9443       	| Rancher webhook                                                                             |
-|    TCP    |       9796        | Default port required by Monitoring to scrape metrics from Linux and Windows node-exporters |
-|    TCP   	|       6783       	| Weave Port      	                                                                          |
-|    UDP   	|       6783-6784   | Weave UDP Ports      	                                                                      |
-|    TCP   	|       10250      	| Metrics server communication with all nodes API                                             |
-|    TCP   	|       10254      	| Ingress controller livenessProbe/readinessProbe 	                                          |
-| TCP/UDP	|       30000-32767 | NodePort port range                             	                                          |
+| 协议 | 端口 | 描述 |
+|:--------:	|:----------------:	|----------------------------------------------------------------------------------	|
+| TCP | 22 | Node Driver SSH 配置 |
+| TCP | 179 | Calico BGP 端口 |
+| TCP | 2376 | Node Driver Docker daemon TLS 端口 |
+| TCP | 2379 | etcd 客户端请求 |
+| TCP | 2380 | etcd 对等通信 |
+| UDP | 8472 | Canal/Flannel VXLAN 覆盖网络 |
+| UDP | 4789 | Windows 集群中的 Flannel VXLAN 覆盖网络 |
+| TCP | 8443 | Rancher webhook |
+| TCP | 9099 | Canal/Flannel livenessProbe/readinessProbe |
+| TCP | 9100 | Monitoring 从 Linux node-exporter 中抓取指标所需的默认端口 |
+| TCP | 9443 | Rancher webhook |
+| TCP | 9796 | Monitoring 从 Windows node-exporter 中抓取指标所需的默认端口 |
+| TCP | 6783 | Weave 端口 |
+| UDP | 6783-6784 | Weave UDP 端口 |
+| TCP | 10250 | Metrics Server 与所有节点 API 的通信 |
+| TCP | 10254 | Ingress controller livenessProbe/readinessProbe |
+| TCP/UDP | 30000-32767 | NodePort 端口范围 |

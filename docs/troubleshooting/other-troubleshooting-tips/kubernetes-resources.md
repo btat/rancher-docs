@@ -1,33 +1,29 @@
 ---
-title: Kubernetes Resources
+title: Kubernetes 资源
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/other-troubleshooting-tips/kubernetes-resources"/>
-</head>
+本文列出的命令/步骤可用于检查最重要的 Kubernetes 资源，并应用于 [Rancher 启动的 Kubernetes](../../cluster-deployment/launch-kubernetes-with-rancher.md) 集群。
 
-The commands/steps listed on this page can be used to check the most important Kubernetes resources and apply to [Rancher Launched Kubernetes](../../how-to-guides/new-user-guides/launch-kubernetes-with-rancher/launch-kubernetes-with-rancher.md) clusters.
-
-Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
+请确保你配置了正确的 kubeconfig（例如，为 Rancher HA 配置了 `export KUBECONFIG=$PWD/kube_config_cluster.yml`）或通过 UI 使用了嵌入式 kubectl。
 
 
-## Nodes
+## 节点
 
-### Get nodes
+### 获取节点
 
-Run the command below and check the following:
+运行以下命令并检查以下内容：
 
-- All nodes in your cluster should be listed, make sure there is not one missing.
-- All nodes should have the **Ready** status (if not in **Ready** state, check the `kubelet` container logs on that node using `docker logs kubelet`)
-- Check if all nodes report the correct version.
-- Check if OS/Kernel/Docker values are shown as expected (possibly you can relate issues due to upgraded OS/Kernel/Docker)
+- 集群中的所有节点都已列出，没有缺失的节点。
+- 所有节点的状态都是 **Ready**（如果未处于 **Ready** 状态，请运行 `docker logs kubelet` 检查该节点上的 `kubelet` 容器日志)
+- 检查所有节点是否报告了正确的版本。
+- 检查 OS/Kernel/Docker 值是否按预期显示（此问题可能与升级 OS/Kernel/Docker 相关）。
 
 
 ```
 kubectl get nodes -o wide
 ```
 
-Example output:
+输出示例：
 
 ```
 NAME             STATUS   ROLES          AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
@@ -36,40 +32,40 @@ etcd-0           Ready    etcd           31m   v1.13.5   138.68.180.33    <none>
 worker-0         Ready    worker         30m   v1.13.5   139.59.179.88    <none>        Ubuntu 18.04.2 LTS   4.15.0-47-generic   docker://18.9.5
 ```
 
-### Get node conditions
+### 获取节点状况
 
-Run the command below to list nodes with [Node Conditions](https://kubernetes.io/docs/concepts/architecture/nodes/#condition)
+运行以下命令列出具有 [Node Conditions](https://kubernetes.io/docs/concepts/architecture/nodes/#condition) 的节点：
 
 ```
 kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{$node.metadata.name}}{{": "}}{{.type}}{{":"}}{{.status}}{{"\n"}}{{end}}{{end}}'
 ```
 
-Run the command below to list nodes with [Node Conditions](https://kubernetes.io/docs/concepts/architecture/nodes/#condition) that are active that could prevent normal operation.
+运行以下命令，列出具有 active [Node Conditions](https://kubernetes.io/docs/concepts/architecture/nodes/#condition) 的节点，这些节点可能阻止正常操作：
 
 ```
 kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{":"}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}'
 ```
 
-Example output:
+输出示例：
 
 ```
 worker-0: DiskPressure:True
 ```
 
-## Kubernetes leader election
+## Kubernetes leader 选举
 
-### Kubernetes Controller Manager leader
+### Kubernetes Controller 管理器 leader
 
-The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-controller-manager` endpoint (in this example, `controlplane-0`).
+Leader 由 Leader 选举确定。确定 Leader 后，Leader（`holderIdentity`）会保存在 `kube-controller-manager` 端点中（在本例中为 `controlplane-0`）。
 
 ```
 kubectl -n kube-system get endpoints kube-controller-manager -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
 {"holderIdentity":"controlplane-0_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx","leaseDurationSeconds":15,"acquireTime":"2018-12-27T08:59:45Z","renewTime":"2018-12-27T09:44:57Z","leaderTransitions":0}>
 ```
 
-### Kubernetes Scheduler leader
+### Kubernetes 调度器 Leader
 
-The leader is determined by a leader election process. After the leader has been determined, the leader (`holderIdentity`) is saved in the `kube-scheduler` endpoint (in this example, `controlplane-0`).
+Leader 由 Leader 选举确定。确定 Leader 后，Leader（`holderIdentity`）会保存在 `kube-scheduler` 端点中（在本例中为 `controlplane-0`）。
 
 ```
 kubectl -n kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.annotations.control-plane\.alpha\.kubernetes\.io/leader}'
@@ -78,15 +74,15 @@ kubectl -n kube-system get endpoints kube-scheduler -o jsonpath='{.metadata.anno
 
 ## Ingress Controller
 
-The default Ingress Controller is NGINX and is deployed as a DaemonSet in the `ingress-nginx` namespace. The pods are only scheduled to nodes with the `worker` role.
+默认的 Ingress Controller 是 NGINX，作为 DaemonSet 部署在 `ingress-nginx` 命名空间中。Pod 仅会调度到具有 `worker` 角色的节点。
 
-Check if the pods are running on all nodes:
+检查 pod 是否运行在所有节点上：
 
 ```
 kubectl -n ingress-nginx get pods -o wide
 ```
 
-Example output:
+输出示例：
 
 ```
 kubectl -n ingress-nginx get pods -o wide
@@ -96,63 +92,63 @@ nginx-ingress-controller-4qd64          1/1       Running   0          14m      
 nginx-ingress-controller-8wxhm          1/1       Running   0          13m       x.x.x.x          worker-0
 ```
 
-If a pod is unable to run (Status is not **Running**, Ready status is not showing `1/1` or you see a high count of Restarts), check the pod details, logs and namespace events.
+如果 pod 无法运行（即状态不是 **Running**，Ready 状态未显示 `1/1`，或者有大量 Restarts），请检查 pod 详细信息，日志和命名空间事件。
 
-### Pod details
+### Pod 详细信息
 
 ```
 kubectl -n ingress-nginx describe pods -l app=ingress-nginx
 ```
 
-### Pod container logs
+### Pod 容器日志
 
-The below command can show the logs of all the pods labeled "app=ingress-nginx", but it will display only 10 lines of log because of the restrictions of the `kubectl logs` command. Refer to `--tail` of `kubectl logs -h` for more information.
+下面的命令可以显示所有标记为 “app=ingress-nginx” 的 pod 的日志，但是由于 `kubectl logs` 命令的限制，它只会显示 10 行日志。有关详细信息，请参阅 `kubectl logs -h` 的 `--tail`。
 
 ```
 kubectl -n ingress-nginx logs -l app=ingress-nginx
 ```
 
-If the full log is needed, specify the pod name in the trailing command:
+如果需要查看完整的日志，请在命令中尾随 pod 名称：
 
 ```
 kubectl -n ingress-nginx logs <pod name>
 ```
 
-### Namespace events
+### 命名空间事件
 
 ```
 kubectl -n ingress-nginx get events
 ```
 
-### Debug logging
+### 调试日志
 
-To enable debug logging:
+要启用调试日志：
 
 ```
 kubectl -n ingress-nginx patch ds nginx-ingress-controller --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--v=5"}]'
 ```
 
-### Check configuration
+### 检查配置
 
-Retrieve generated configuration in each pod:
+在每个 pod 中检索生成的配置：
 
 ```
 kubectl -n ingress-nginx get pods -l app=ingress-nginx --no-headers -o custom-columns=.NAME:.metadata.name | while read pod; do kubectl -n ingress-nginx exec $pod -- cat /etc/nginx/nginx.conf; done
 ```
 
-## Rancher agents
+## Rancher Agents
 
-Communication to the cluster (Kubernetes API via `cattle-cluster-agent`) and communication to the nodes (cluster provisioning via `cattle-node-agent`) is done through Rancher agents.
+Rancher Agent 用于实现与集群的通信（通过 `cattle-cluster-agent` 的 Kubernetes API）和与节点的通信（通过 `cattle-node-agent` 的集群配置）。
 
 #### cattle-node-agent
 
-Check if the cattle-node-agent pods are present on each node, have status **Running** and don't have a high count of Restarts:
+检查每个节点上是否存在 cattle-node-agent pod，状态是否为 **Running**，并且重启次数不多：
 
 ```
 kubectl -n cattle-system get pods -l app=cattle-agent -o wide
 ```
 
-Example output:
+输出示例：
 
 ```
 NAME                      READY     STATUS    RESTARTS   AGE       IP                NODE
@@ -165,7 +161,7 @@ cattle-node-agent-t5484   1/1       Running   0          2h        x.x.x.x      
 cattle-node-agent-t8mtz   1/1       Running   0          2h        x.x.x.x           etcd-2
 ```
 
-Check logging of a specific cattle-node-agent pod or all cattle-node-agent pods:
+检查特定或所有 cattle-node-agent pod 的日志记录：
 
 ```
 kubectl -n cattle-system logs -l app=cattle-agent
@@ -173,87 +169,87 @@ kubectl -n cattle-system logs -l app=cattle-agent
 
 #### cattle-cluster-agent
 
-Check if the cattle-cluster-agent pod is present in the cluster, has status **Running** and doesn't have a high count of Restarts:
+检查 cattle-cluster-agent pod 是否存在于集群中，状态是否为 **Running**，并且重启次数不多：
 
 ```
 kubectl -n cattle-system get pods -l app=cattle-cluster-agent -o wide
 ```
 
-Example output:
+输出示例：
 
 ```
 NAME                                    READY     STATUS    RESTARTS   AGE       IP           NODE
 cattle-cluster-agent-54d7c6c54d-ht9h4   1/1       Running   0          2h        x.x.x.x      worker-1
 ```
 
-Check logging of cattle-cluster-agent pod:
+检查 cattle-cluster-agent pod 的日志记录：
 
 ```
 kubectl -n cattle-system logs -l app=cattle-cluster-agent
 ```
 
-## Jobs and Pods
+## Jobs 和 Pods
 
-### Check that pods or jobs have status **Running**/**Completed**
+### 检查 Pod 或 Job 的状态是否为 **Running**/**Completed**
 
-To check, run the command:
+运行以下命令进行检查：
 
 ```
 kubectl get pods --all-namespaces
 ```
 
-If a pod is not in **Running** state, you can dig into the root cause by running:
+如果 Pod 的状态不是 **Running**，你可以通过运行命令来找到根本原因。
 
-### Describe pod
+### 描述 Pod
 
 ```
 kubectl describe pod POD_NAME -n NAMESPACE
 ```
 
-### Pod container logs
+### Pod 容器日志
 
 ```
 kubectl logs POD_NAME -n NAMESPACE
 ```
 
-If a job is not in **Completed** state, you can dig into the root cause by running:
+如果 Job 的状态不是 **Completed**，你可以通过运行命令来找到根本原因。
 
-### Describe job
+### 描述 Job
 
 ```
 kubectl describe job JOB_NAME -n NAMESPACE
 ```
 
-### Logs from the containers of pods of the job
+### Job Pod 容器的日志
 
 ```
 kubectl logs -l job-name=JOB_NAME -n NAMESPACE
 ```
 
-### Evicted pods
+### 驱逐的 Pod
 
-Pods can be evicted based on [eviction signals](https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/#eviction-policy).
+可以根据 [eviction 信号](https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/#eviction-policy)来驱逐 Pod。
 
-Retrieve a list of evicted pods (podname and namespace):
+检索被驱逐的 Pod 列表（podname 和命名空间）：
 
 ```
 kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}'
 ```
 
-To delete all evicted pods:
+要删除所有被驱逐的 pod：
 
 ```
 kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl -n $enamespace delete pod $epod; done
 ```
 
-Retrieve a list of evicted pods, scheduled node and the reason:
+检索被驱逐的 pod 列表、调度节点以及原因：
 
 ```
 kubectl get pods --all-namespaces -o go-template='{{range .items}}{{if eq .status.phase "Failed"}}{{if eq .status.reason "Evicted"}}{{.metadata.name}}{{" "}}{{.metadata.namespace}}{{"\n"}}{{end}}{{end}}{{end}}' | while read epod enamespace; do kubectl -n $enamespace get pod $epod -o=custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,MSG:.status.message; done
 ```
 
-### Job does not complete
+### Job 未完成
 
-If you have enabled Istio, and you are having issues with a Job you deployed not completing, you will need to add an annotation to your pod using [these steps.](../../how-to-guides/advanced-user-guides/istio-setup-guide/enable-istio-in-namespace.md)
+如果你启用了 Istio 而且你部署的 Job 未完成，你需要按照[这些步骤](../../observability/istio/guides/enable-istio-in-namespace.md)将注释添加到 Pod 中。
 
-Since Istio Sidecars run indefinitely, a Job cannot be considered complete even after its task has completed. This is a temporary workaround and will disable Istio for any traffic to/from the annotated Pod. Keep in mind this may not allow you to continue to use a Job for integration testing, as the Job will not have access to the service mesh.
+由于 Istio Sidecars 会一直运行，因此即使任务完成了，也不能认为 Job 已完成。这是一个临时的解决方法，它禁止了 Istio 和添加了注释的 Pod 之间的通信。如果你使用了这个方法，由于这个 Job 无法访问服务网格，因此你将不能继续使用 Job 进行集成测试。

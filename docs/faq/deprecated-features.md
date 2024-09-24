@@ -1,25 +1,26 @@
 ---
-title: Deprecated Features in Rancher
+title: Rancher 中已弃用的功能
 ---
 
 <head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/faq/deprecated-features"/>
+  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/zh/faq/deprecated-features"/>
 </head>
 
-## What is Rancher's deprecation policy?
+## Rancher 的弃用策略是什么？
 
-We have published our official deprecation policy in the support [terms of service](https://rancher.com/support-maintenance-terms).
+我们已经在支持的[服务条款](https://rancher.com/support-maintenance-terms)中发布了官方的弃用策略。
 
-## Where can I find out which features have been deprecated in Rancher?
+## 在哪里可以了解 Rancher 中已弃用哪些功能？
 
-Rancher will publish deprecated features as part of the [release notes](https://github.com/rancher/rancher/releases) for Rancher found on GitHub. Please consult the following patch releases for deprecated features:
+Rancher 将在 GitHub 上发布的 Rancher 的[发版说明](https://github.com/rancher/rancher/releases)中发布已弃用的功能。有关已弃用的功能，请参阅以下的补丁版本：
 
-| Patch Version |  Release Date |
-|---------------|---------------|
-| [2.9.2](https://github.com/rancher/rancher/releases/tag/v2.9.2) | Sep 19, 2024 |
-| [2.9.1](https://github.com/rancher/rancher/releases/tag/v2.9.1) | Aug 26, 2024 |
-| [2.9.0](https://github.com/rancher/rancher/releases/tag/v2.9.0) | Jul 31, 2024 |
+| Patch 版本                                                      | 发布时间           |
+| --------------------------------------------------------------- | ------------------ |
+| [2.8.3](https://github.com/rancher/rancher/releases/tag/v2.8.3) | 2024 年 3 月 28 日 |
+| [2.8.2](https://github.com/rancher/rancher/releases/tag/v2.8.2) | 2024 年 2 月 8 日  |
+| [2.8.1](https://github.com/rancher/rancher/releases/tag/v2.8.1) | 2024 年 1 月 22 日 |
+| [2.8.0](https://github.com/rancher/rancher/releases/tag/v2.8.0) | 2023 年 12 月 6 日 |
 
-## What can I expect when a feature is marked for deprecation?
+## 当一个功能被标记为弃用我可以得到什么样的预期？
 
-In the release where functionality is marked as "Deprecated", it will still be available and supported allowing upgrades to follow the usual procedure. Once upgraded, users/admins should start planning to move away from the deprecated functionality before upgrading to the release it marked as removed. The recommendation for new deployments is to not use the deprecated feature.
+当功能被标记为“已弃用”时，它依然可用并得到支持，允许按照常规的流程进行升级。一旦升级完成，用户/管理员应开始计划在升级到标记为已移除的版本之前放弃使用已弃用的功能。对于新的部署，建议不要使用已弃用的功能。

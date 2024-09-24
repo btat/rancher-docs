@@ -1,48 +1,44 @@
 ---
-title: General Troubleshooting
+title: 一般故障排除
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/general-troubleshooting"/>
-</head>
+本文用于帮助你解决使用 Rancher 时遇到的问题。
 
-This section contains information to help you troubleshoot issues when using Rancher.
+- [Kubernetes 组件](./kubernetes-components/kubernetes-components.md)
 
-- [Kubernetes components](kubernetes-components/kubernetes-components.md)
-
-    If you need help troubleshooting core Kubernetes cluster components like:
-    * `etcd`
-    * `kube-apiserver`
-    * `kube-controller-manager`
-    * `kube-scheduler`
-    * `kubelet`
-    * `kube-proxy`
-    * `nginx-proxy`
+   对以下核心 Kubernetes 集群组件进行故障排除：
+   * `etcd`
+   * `kube-apiserver`
+   * `kube-controller-manager`
+   * `kube-scheduler`
+   * `kubelet`
+   * `kube-proxy`
+   * `nginx-proxy`
 
 - [Kubernetes resources](other-troubleshooting-tips/kubernetes-resources.md)
 
-    Options for troubleshooting Kubernetes resources like Nodes, Ingress Controller and Rancher Agents are described in this section.
+   本节介绍了对节点、Ingress Controller 和 Rancher Agent 等 Kubernetes 资源进行故障排除的选项。
 
-- [Networking](other-troubleshooting-tips/networking.md)
+- [网络](other-troubleshooting-tips/networking.md)
 
-    Steps to troubleshoot networking issues can be found here.
+   介绍了解决网络问题的步骤。
 
 - [DNS](other-troubleshooting-tips/dns.md)
 
-    When you experience name resolution issues in your cluster.
+   解决集群的名称解析问题。
 
-- [Troubleshooting Rancher installed on Kubernetes](other-troubleshooting-tips/rancher-ha.md)
+- [对安装在 Kubernetes 上的 Rancher 进行故障排除](../installation-and-upgrade/troubleshooting/rancher-ha.md)
 
-    If you experience issues with your [Rancher server installed on Kubernetes](../getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster/install-upgrade-on-a-kubernetes-cluster.md)
+   解决[安装在 Kubernetes 上的 Rancher Server](../installation-and-upgrade/install-rancher.md) 的问题。
 
-- [Logging](other-troubleshooting-tips/logging.md)
+- [Logging](../observability/logging/troubleshooting.md)
 
-    Read more about what log levels can be configured and how to configure a log level.
+   了解可以配置哪些日志级别，以及如何配置日志级别。
 
-- [User ID Tracking in Audit Logs](other-troubleshooting-tips/user-id-tracking-in-audit-logs.md)
+- [审计日志中的用户 ID 跟踪](other-troubleshooting-tips/user-id-tracking-in-audit-logs.md)
 
-    Read more about how a Rancher Admin can trace an event from the Rancher audit logs and into the Kubernetes audit logs using the external Identity Provider username.
+   了解 Rancher 管理员如何通过外部身份提供程序用户名从 Rancher 审计日志和 Kubernetes 审计日志中跟踪事件。
 
-- [Expired Webhook Certificates](other-troubleshooting-tips/expired-webhook-certificate-rotation.md)  
+- [过期的 Webhook 证书](../security/rancher-webhook/expired-webhook-certificate-rotation.md)
 
-    Read more about how to rotate a Rancher webhook certificate secret after it expires on an annual basis.
+   了解如何在每年到期后轮换 Rancher webhook 证书密钥。

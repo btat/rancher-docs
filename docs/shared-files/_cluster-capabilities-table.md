@@ -1,23 +1,23 @@
-| Action | Rancher Launched Kubernetes Clusters |  EKS, GKE and AKS Clusters<sup>1</sup> | Other Hosted Kubernetes Clusters | Non-EKS or GKE Registered Clusters |
+| 操作 | Rancher 启动的 Kubernetes 集群 | EKS、GKE 和 AKS 集群<sup>1</sup> | 其他托管的 Kubernetes 集群 | 非 EKS 或 GKE 注册集群 |
 | --- | --- | ---| ---|----|
-| [Using kubectl and a kubeconfig file to Access a Cluster](../how-to-guides/new-user-guides/manage-clusters/access-clusters/use-kubectl-and-kubeconfig.md) | ✓ | ✓ | ✓ | ✓ |
-| [Managing Cluster Members](../how-to-guides/new-user-guides/manage-clusters/access-clusters/add-users-to-clusters.md) | ✓ | ✓ | ✓ | ✓ |
-| [Editing and Upgrading Clusters](../reference-guides/cluster-configuration/cluster-configuration.md) | ✓ | ✓ | ✓ | ✓<sup>2</sup> |
-| [Managing Nodes](../how-to-guides/new-user-guides/manage-clusters/nodes-and-node-pools.md) | ✓ | ✓ | ✓ | ✓<sup>3</sup> |
-| [Managing Persistent Volumes and Storage Classes](../how-to-guides/new-user-guides/manage-clusters/create-kubernetes-persistent-storage/create-kubernetes-persistent-storage.md) | ✓ | ✓ | ✓ | ✓ |
-| [Managing Projects, Namespaces and Workloads](../how-to-guides/new-user-guides/manage-clusters/projects-and-namespaces.md) | ✓ | ✓ | ✓ | ✓ |
-| [Using App Catalogs](../how-to-guides/new-user-guides/helm-charts-in-rancher/helm-charts-in-rancher.md) | ✓ | ✓ | ✓ | ✓ |
-| Configuring Tools ([Alerts, Notifiers, Monitoring](../integrations-in-rancher/monitoring-and-alerting/monitoring-and-alerting.md), [Logging](../integrations-in-rancher/logging/logging.md), [Istio](../integrations-in-rancher/istio/istio.md)) | ✓ | ✓ | ✓ | ✓ |
-| [Running Security Scans](../how-to-guides/advanced-user-guides/cis-scan-guides/cis-scan-guides.md) | ✓ | ✓ | ✓ | ✓ |
-| [Ability to rotate certificates](../how-to-guides/new-user-guides/manage-clusters/rotate-certificates.md) | ✓ | ✓  |  | |
-| Ability to [backup](../how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/back-up-rancher-launched-kubernetes-clusters.md) and [restore](../how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/restore-rancher-launched-kubernetes-clusters-from-backup.md) Rancher-launched clusters | ✓ | ✓ |  | ✓<sup>4</sup> |
-| [Cleaning Kubernetes components when clusters are no longer reachable from Rancher](../how-to-guides/new-user-guides/manage-clusters/clean-cluster-nodes.md) | ✓ | | | |
-| [Configuring Pod Security Policies](../how-to-guides/new-user-guides/manage-clusters/add-a-pod-security-policy.md) | ✓ | ✓ |  ||
+| [使用 kubectl 和 kubeconfig 文件来访问集群](../cluster-admin/manage-clusters/access-clusters/use-kubectl-and-kubeconfig.md) | ✓ | ✓ | ✓ | ✓ |
+| [管理集群成员](../cluster-admin/manage-clusters/access-clusters/add-users-to-clusters.md) | ✓ | ✓ | ✓ | ✓ |
+| [编辑和升级集群](../reference-guides/cluster-configuration/cluster-configuration.md) | ✓ | ✓ | ✓ | ✓<sup>2</sup> |
+| [管理节点](../cluster-admin/manage-clusters/nodes-and-node-pools.md) | ✓ | ✓ | ✓ | ✓<sup>3</sup> |
+| [管理持久卷和存储类](../cluster-admin/manage-clusters/persistent-storage/manage-persistent-storage.md) | ✓ | ✓ | ✓ | ✓ |
+| [管理项目、命名空间和工作负载](../cluster-admin/manage-clusters/projects-and-namespaces.md) | ✓ | ✓ | ✓ | ✓ |
+| [使用应用目录](../cluster-admin/helm-charts-in-rancher/helm-charts-in-rancher.md) | ✓ | ✓ | ✓ | ✓ |
+| 配置工具（[Alerts、Notifiers、Monitoring](../observability/monitoring-and-dashboards/monitoring-and-alerting.md)、[Logging](../observability/logging/logging.md) 和 [Istio](../observability/istio/istio.md)） | ✓ | ✓ | ✓ | ✓ |
+| [运行安全扫描](../security/cis-scans/how-to.md) | ✓ | ✓ | ✓ | ✓ |
+| [轮换证书](../cluster-admin/manage-clusters/rotate-certificates.md) | ✓ | ✓ |  | |
+| [备份](../cluster-admin/backups-and-restore/backups.md)和[恢复](../cluster-admin/backups-and-restore/restore.md) Rancher 启动的集群 | ✓ | ✓ |  | ✓<sup>4</sup> |
+| [在 Rancher 无法访问集群时清理 Kubernetes 组件](../cluster-admin/manage-clusters/clean-cluster-nodes.md) | ✓ | | | |
+| [配置 Pod 安全策略](../security/psp/add.md) | ✓ | ✓ |   |
 
-1. Registered EKS, GKE and AKS clusters have the same options available as EKS, GKE and AKS clusters created from the Rancher UI. The  difference is that when a registered cluster is deleted from the Rancher UI, it is not destroyed.
+1. 注册的 EKS、GKE 和 AKS 集群与从 Rancher UI 创建的 EKS、GKE 和 AKS 集群的可用选项一致。不同之处是，从 Rancher UI 中删除已注册的集群后，集群不会被销毁。
 
-2. Cluster configuration options can't be edited for registered clusters, except for [K3s and RKE2 clusters.](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/register-existing-clusters.md)
+2. 无法编辑已注册的集群的集群配置选项（[K3s 和 RKE2 集群](../cluster-deployment/register-existing-clusters.md)除外）。
 
-3. For registered cluster nodes, the Rancher UI exposes the ability to cordon, drain, and edit the node.
+3. Rancher UI 为已注册的集群节点提供了封锁、清空和编辑节点的功能。
 
-4. For registered clusters using etcd as a control plane, snapshots must be taken manually outside of the Rancher UI to use for backup and recovery.
+4. 对于使用 etcd 作为 controlplane 的注册集群，必须在 Rancher UI 之外手动创建快照以用于备份和恢复。

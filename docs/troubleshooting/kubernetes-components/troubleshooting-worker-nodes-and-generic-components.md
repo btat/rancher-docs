@@ -1,36 +1,32 @@
 ---
-title: Troubleshooting Worker Nodes and Generic Components
+title: Worker 节点和通用组件故障排除
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/kubernetes-components/troubleshooting-worker-nodes-and-generic-components"/>
-</head>
+本文包括了运行在所有角色节点上的组件，因此适用于每个节点。
 
-This section applies to every node as it includes components that run on nodes with any role.
+## 检查容器是否正在运行
 
-## Check if the Containers are Running
-
-There are two specific containers launched on nodes with the `worker` role:
+具有 `worker` 角色的节点上启动了两个容器：
 
 * kubelet
 * kube-proxy
 
-The containers should have status `Up`. The duration shown after `Up` is the time the container has been running.
+容器的状态应该是 `Up`。`Up` 后面显示的时间指的是容器运行的时间。
 
 ```
 docker ps -a -f=name='kubelet|kube-proxy'
 ```
 
-Example output:
+输出示例：
 ```
 CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS               NAMES
 158d0dcc33a5        rancher/hyperkube:v1.11.5-rancher1   "/opt/rke-tools/en..."   3 hours ago         Up 3 hours                              kube-proxy
 a30717ecfb55        rancher/hyperkube:v1.11.5-rancher1   "/opt/rke-tools/en..."   3 hours ago         Up 3 hours                              kubelet
 ```
 
-## Container Logging
+## 容器日志记录
 
-The logging of the containers can contain information on what the problem could be.
+容器的日志记录可能包含问题的信息。
 
 ```
 docker logs kubelet
