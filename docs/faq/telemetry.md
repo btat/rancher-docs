@@ -1,35 +1,31 @@
 ---
-title: Telemetry FAQ
+title: 遥测
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/faq/telemetry"/>
-</head>
+## 什么是遥测？
 
-## What is Telemetry?
+遥测（Telemetry）收集 Rancher 安装大小、使用的组件版本以及使用功能的汇总信息。Rancher Labs 会使用此信息来改进产品，我们不会与第三方共享此信息。
 
-Telemetry collects aggregate information about the size of Rancher installations, versions of components used, and which features are used.  This information is used by Rancher Labs to help make the product better and is not shared with third-parties.
+## 收集什么信息？
 
-## What information is collected?
+我们不会收集任何识别信息（如用户名、密码或用户资源的名称或地址）。
 
-No specific identifying information like usernames, passwords, or the names or addresses of user resources will ever be collected.
+收集的主要内容包括：
 
-The primary things collected include:
+- 每个集群的节点总数（最小、平均、最大、总数）及其大小（例如 CPU 核心数和 RAM）。
+- 集群、项目、命名空间和 Pod 等逻辑资源的聚合计数。
+- 用于部署集群和节点的驱动程序计数（例如 GKE、EC2、导入与自定义）。
+- 部署在节点上的 Kubernetes 组件、操作系统和 Docker 的版本。
+- 是否启用了某些可选组件（例如，使用了哪些身份验证提供程序）。
+- 运行的 Rancher 的镜像名称和版本。
+- 此安装的唯一随机标识符。
 
-  - Aggregate counts (smallest, average, largest, total) of nodes per-cluster and their size (e.g. CPU cores & RAM).
-  - Aggregate counts of logical resources like Clusters, Projects, Namespaces, and Pods.
-  - Counts of what driver was used to deploy clusters and nodes (e.g. GKE vs EC2 vs Imported vs Custom).
-  - Versions of Kubernetes components, Operating Systems and Docker that are deployed on nodes.
-  - Whether some optional components are enabled or not (e.g. which auth providers are used).
-  - The image name & version of Rancher that is running.
-  - A unique randomly-generated identifier for this installation.
+## 我可以看到发送的信息吗？
 
-## Can I see the information that is being sent?
+如果启用了遥测，你可以转到 `https://<your rancher server>/v1-telemetry` 查看当前数据。
 
-If Telemetry is enabled, you can go to `https://<your rancher server>/v1-telemetry` in your installation to see the current data.
+如果未启用遥测，则收集数据的进程未运行，因此没有可供查看的内容。
 
-If Telemetry is not enabled, the process that collects the data is not running, so there is nothing being collected to look at.
+## 如何打开或关闭它？
 
-## How do I turn it on or off?
-
-After initial setup, an administrator can go to the `Settings` page in the `Global` section of the UI and click Edit to change the `telemetry-opt` setting to either `in` or `out`.
+完成初始设置后，管理员可以转到 UI `全局`中的`设置`页面，单击**编辑**，然后将 `telemetry-opt` 更改为 `in` 或 `out`。

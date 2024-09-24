@@ -1,22 +1,18 @@
 ---
-title: Troubleshooting nginx-proxy
+title: nginx-proxy 故障排除
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/kubernetes-components/troubleshooting-nginx-proxy"/>
-</head>
+每个没有 `controlplane` 角色的节点上都部署了 `nginx-proxy` 容器。`nginx-proxy` 基于具有 `controlplane` 角色的可用节点来动态生成 NGINX 配置，从而提供对这些 `controlplane` 角色节点的访问。
 
-The `nginx-proxy` container is deployed on every node that does not have the `controlplane` role. It provides access to all the nodes with the `controlplane` role by dynamically generating the NGINX configuration based on available nodes with the `controlplane` role.
+## 检查容器是否正在运行
 
-## Check if the Container is Running
-
-The container is called `nginx-proxy` and should have status `Up`. The duration shown after `Up` is the time the container has been running.
+该容器称为 `nginx-proxy`，它的状态应该是 `Up`。`Up` 后面显示的时间指的是容器运行的时间。
 
 ```
 docker ps -a -f=name=nginx-proxy
 ```
 
-Example output:
+输出示例：
 
 ```
 docker ps -a -f=name=nginx-proxy
@@ -24,15 +20,15 @@ CONTAINER ID        IMAGE                       COMMAND                  CREATED
 c3e933687c0e        rancher/rke-tools:v0.1.15   "nginx-proxy CP_HO..."   3 hours ago         Up 3 hours                              nginx-proxy
 ```
 
-## Check Generated NGINX Configuration
+## 检查生成的 NGINX 配置
 
-The generated configuration should include the IP addresses of the nodes with the `controlplane` role. The configuration can be checked using the following command:
+生成的配置包括了具有 `controlplane` 角色的节点的 IP 地址。你可以使用以下命令来检查配置：
 
 ```
 docker exec nginx-proxy cat /etc/nginx/nginx.conf
 ```
 
-Example output:
+输出示例：
 ```
 error_log stderr notice;
 
@@ -63,9 +59,9 @@ stream {
 }
 ```
 
-## nginx-proxy Container Logging
+## nginx-proxy 容器日志记录
 
-The logging of the containers can contain information on what the problem could be.
+容器的日志记录可能包含问题的信息。
 
 ```
 docker logs nginx-proxy

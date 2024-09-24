@@ -1,47 +1,51 @@
 ---
-title: General FAQ
+title: 一般常见问题解答
 ---
 
 <head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/faq/general-faq"/>
+  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/zh/faq/general-faq"/>
 </head>
 
-This FAQ is a work in progress designed to answer the questions most frequently asked about Rancher v2.x.
+本文包含了用户常见的 Rancher 2.x 问题。
 
-See the [Technical FAQ](technical-items.md) for frequently asked technical questions.
+有关常见技术问题，请参阅[常见技术问题解答](technical-items.md)。
 
-## Is it possible to manage Azure Kubernetes Services with Rancher v2.x?
+## Rancher 2.x 支持 Docker Swarm 和 Mesos 作为环境类型吗？
 
-Yes. See our [Cluster Administration](../how-to-guides/new-user-guides/manage-clusters/manage-clusters.md) guide for what Rancher features are available on AKS, as well as our [documentation on AKS](../getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster/rancher-on-aks.md).
+如果你在 Rancher 2.x 中创建环境，Swarm 和 Mesos 将不再是可选的标准选项。但是，Swarm 和 Mesos 还能继续作为可以部署的商店应用程序。这是一个艰难的决定，但这是大势所趋。比如说，15,000 多个集群可能只有大约 200 个在运行 Swarm。
 
-## Does Rancher support Windows?
+## 是否可以使用 Rancher 2.x 管理 Azure Kubernetes 服务？
 
-Yes. Rancher supports Windows Server 1809 containers. For details on how to set up a cluster with Windows worker nodes, refer to the section on [configuring custom clusters for Windows.](../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/use-windows-clusters/use-windows-clusters.md)
+是的。请参阅我们的[集群管理](../cluster-admin/manage-clusters/manage-clusters.md)指南，了解 AKS 上可用的 Rancher 功能，以及相关的 [AKS 的文档](../installation-and-upgrade/hosted-kubernetes/rancher-on-aks.md)
 
-## Does Rancher support Istio?
+## Rancher 是否支持 Windows？
 
-Yes. Rancher supports [Istio](../integrations-in-rancher/istio/istio.md).
+Rancher 支持 Windows Server 1809 容器。有关如何使用 Windows Worker 节点设置集群的详细信息，请参阅[为 Windows 配置自定义集群](../cluster-deployment/custom-clusters/windows/use-windows-clusters.md)。
 
-## Will Rancher v2.x support Hashicorp's Vault for storing secrets?
+## Rancher 是否支持 Istio？
 
-Secrets management is on our roadmap but we haven't assigned it to a specific release yet.
+Rancher 支持 [Istio](../observability/istio/istio.md)。
 
-## Does Rancher v2.x support RKT containers as well?
+## Rancher 2.x 是否支持使用 Hashicorp 的 Vault 来存储密文？
 
-At this time, we only support Docker.
+密文管理已在我们的 roadmap 上，但我们尚未将该功能分配给特定版本。
 
-## Does Rancher v2.x support Calico, Contiv, Contrail, Flannel, Weave net, etc., for embedded and registered Kubernetes?
+## Rancher 2.x 是否也支持 RKT 容器？
 
-Out-of-the-box, Rancher provides the following CNI network providers for Kubernetes clusters: Canal, Flannel, Calico and Weave.  Always refer to the [Rancher Support Matrix](https://rancher.com/support-maintenance-terms/) for details about what is officially supported.
+目前，我们只支持 Docker。
 
-## Are you planning on supporting Traefik for existing setups?
+## Rancher 2.x 是否支持将 Calico、Contiv、Contrail、Flannel、Weave net 等网络插件用于嵌入和已注册的 Kubernetes？
 
-We don't currently plan on providing embedded Traefik support, but we're still exploring load-balancing approaches.
+Rancher 开箱即用地为 Kubernetes 集群提供了几个 CNI 网络插件，分别是 Canal、Flannel、Calico 和 Weave。有关官方支持的详细信息，请参阅 [Rancher 支持矩阵](https://rancher.com/support-maintenance-terms/)。
 
-## Can I import OpenShift Kubernetes clusters into v2.x?
+## Rancher 是否计划支持 Traefik？
 
-Our goal is to run any Kubernetes clusters. Therefore, Rancher v2.x should work with OpenShift, but we haven't tested it yet.
+目前，我们不打算提供嵌入式 Traefik 支持，但我们仍在探索负载均衡方案。
 
-## Is Longhorn integrated with Rancher?
+## 我可以将 OpenShift Kubernetes 集群导入 2.x 吗？
 
-Yes. Longhorn is integrated with Rancher v2.5 and later.
+我们的目标是运行任何上游 Kubernetes 集群。因此，Rancher 2.x 应该可以与 OpenShift 一起使用，但我们尚未对此进行测试。
+
+## Rancher 会集成 Longhorn 吗？
+
+是的。Longhorn 已集成到 Rancher 2.5+ 中。

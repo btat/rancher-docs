@@ -1,16 +1,16 @@
 ---
-title: Projects
+title: 项目
 ---
 
 <head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/api/workflows/projects"/>
+  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/zh/api/workflows/projects"/>
 </head>
 
-## Creating a Project
+## 创建项目
 
-Project resources may only be created on the management cluster. See below for [creating namespaces under projects in a managed cluster](#creating-a-namespace-in-a-project).
+项目资源只能在管理集群上创建，请参考下文了解如何[在管理集群中的项目下创建命名空间](#在项目中创建命名空间)
 
-### Creating a Basic Project
+### 创建一个基本项目
 
 ```bash
 kubectl create -f - <<EOF
@@ -25,11 +25,11 @@ spec:
 EOF
 ```
 
-Use `metadata.generateName` to ensure a unique project ID, but note that `kubectl apply` does not work with `metadata.generateName`, so `kubectl create` must be used instead.
+使用 `metadata.generateName` 来确保一个唯一的项目 ID，但是需要注意 `kubectl apply` 不能与 `metadata.generateName` 一起使用，因此必须使用 `kubectl create` 来替代。
 
-Set `metadata.namespace` and `spec.clusterName` to the ID for the cluster the project belongs to.
+将 `metadata.namespace` 和 `spec.clusterName` 设置为项目所属的集群 ID。
 
-If you create a project through a cluster member account, you must include the annotation, `field.cattle.io/creatorId`, and set it to the cluster member account's user ID.
+如果你通过集群成员账户创建项目，则必须包含注释 `field.cattle.io/creatorId`，并将注释值设置为集群成员账号的用户 ID。
 
 ```bash
 kubectl create -f - <<EOF
@@ -47,11 +47,11 @@ spec:
 EOF
 ```
 
-Setting the `field.cattle.io/creatorId` field allows the cluster member account to see project resources with the `get` command and view the project in the Rancher UI. Cluster owner and admin accounts don't need to set this annotation to perform these tasks.
+设置 `field.cattle.io/creatorId` 字段允许集群成员账户通过 `get` 命令查看项目资源，并可以在 Rancher UI 中查看项目。集群所有者和管理员账号不需要设置此注释。
 
-### Creating a Project With a Resource Quota
+### 创建一个具有 Resource Quota 的项目
 
-Refer to [Kubernetes Resource Quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/).
+请查看 [Kubernetes Resource Quota](https://kubernetes.io/docs/concepts/policy/resource-quotas/)。
 
 ```bash
 kubectl create -f - <<EOF
@@ -72,9 +72,9 @@ spec:
 EOF
 ```
 
-### Creating a Project With Container Limit Ranges
+### 创建一个具有 Container Limit Ranges 的项目
 
-Refer to [Kubernetes Limit Ranges](https://kubernetes.io/docs/concepts/policy/limit-range/).
+请查看 [Kubernetes Limit Ranges](https://kubernetes.io/docs/concepts/policy/limit-range/)。
 
 ```bash
 kubectl create -f - <<EOF
@@ -93,17 +93,17 @@ spec:
     requestsMemory: 50Mi
 ```
 
-## Creating a Namespace in a Project
+## 在项目中创建命名空间
 
-The Project resource resides in the management cluster, even if the Project is for a managed cluster. The namespaces under the project reside in the managed cluster.
+项目资源保存在管理集群中，即使该项目使用于托管集群也是如此。项目下的命名空间保存在托管集群中。
 
-On the management cluster, look up the project ID for the cluster you are administrating since it generated using `metadata.generateName`:
+在管理集群上查找你正在管理的集群的项目 ID，因为它是使用 `metadata.generateName` 生成的：
 
 ```bash
 kubectl --namespace c-m-abcde get projects
 ```
 
-On the managed cluster, create a namespace with a project annotation:
+在托管集群上，使用项目注释创建命名空间:
 
 ```bash
 kubectl apply -f - <<EOF
@@ -116,20 +116,20 @@ metadata:
 EOF
 ```
 
-Note the format, `<cluster ID>:<project ID>`.
+注意格式：`<cluster ID>:<project ID>`
 
-## Deleting a Project
+## 删除项目
 
-Look up the project to delete in the cluster namespace:
+在集群命名空间中查找要删除的项目：
 
 ```bash
 kubectl --namespace c-m-abcde get projects
 ```
 
-Delete the project under the cluster namespace:
+删除集群命名空间下的项目：
 
 ```bash
 kubectl --namespace c-m-abcde delete project p-vwxyz
 ```
 
-Note that this command doesn't delete the namespaces and resources that formerly belonged to the project. 
+请注意此命令不会删除以前属于该项目的命名空间和资源。

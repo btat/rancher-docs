@@ -1,21 +1,14 @@
 ---
-title: Security FAQ
+title: 安全
+
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/faq/security"/>
-</head>
+**是否有强化指南？**
 
-## Is there a Hardening Guide?
+强化指南现在位于[安全](../security/security-overview.md)部分。
 
-The Hardening Guide is located in the main [Security](../reference-guides/rancher-security/rancher-security.md) section.
+<br/>
 
-## Have hardened Rancher Kubernetes clusters been evaluated by the CIS Kubernetes Benchmark? Where can I find the results?
+**Rancher Kubernetes 集群 CIS Benchmark 测试的结果是什么？**
 
-We have run the CIS Kubernetes benchmark against a hardened Rancher Kubernetes cluster.  The results of that assessment can be found in the main [Security](../reference-guides/rancher-security/rancher-security.md) section.
-
-## How does Rancher verify communication with downstream clusters, and what are some associated security concerns?
-
-Communication between the Rancher server and downstream clusters is performed through agents. Rancher uses either a registered certificate authority (CA) bundle or the local trust store to verify communication between Rancher agents and the Rancher server. Using a CA bundle for verification is more strict, as only the certificates based on that bundle are trusted. If TLS verification for a explicit CA bundle fails, Rancher may fall back to using the local trust store for verifying future communication. Any CA within the local trust store can then be used to generate a valid certificate.
-
-As described in [Rancher Security Update CVE-2024-22030](https://www.suse.com/c/rancher-security-update/), under a narrow set of circumstances, malicious actors can take over Rancher nodes by exploiting the behavior of Rancher CAs. For the attack to succeed, the malicious actor must generate a valid certificate from either a valid CA in the targeted Rancher server, or from a valid registered CA. The attacker also needs to either hijack or spoof the Rancher server-url as a preliminary step. Rancher is currently evaluating Rancher CA behavior to mitigate against this and any similar avenues of attack. 
+我们已经针对强化的 Rancher Kubernetes 集群运行了 CIS Kubernetes Benchmark 测试。你可以在[安全](../security/security-overview.md)中找到该评估的结果。

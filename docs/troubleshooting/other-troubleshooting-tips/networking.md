@@ -1,110 +1,104 @@
 ---
-title: Networking
+title: 网络
 ---
 
-<head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/other-troubleshooting-tips/networking"/>
-</head>
+本文列出的命令/步骤可用于检查集群中的网络问题。
 
-The commands/steps listed on this page can be used to check networking related issues in your cluster.
+请确保你配置了正确的 kubeconfig（例如，为 Rancher HA 配置了 `export KUBECONFIG=$PWD/kube_config_cluster.yml`）或通过 UI 使用了嵌入式 kubectl。
 
-Make sure you configured the correct kubeconfig (for example, `export KUBECONFIG=$PWD/kube_config_cluster.yml` for Rancher HA) or are using the embedded kubectl via the UI.
+## 仔细检查你的（主机）防火墙中是否打开了所有必需的端口
 
-## Double Check if All the Required Ports are Opened in Your (Host) Firewall
+仔细检查你的（主机）防火墙中是否打开了所有[必需的端口](../../cluster-deployment/node-requirements.md#网络要求)。其他所需的端口都使用 TCP，而覆盖网络使用 UDP。
 
-Double check if all the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) are opened in your (host) firewall. The overlay network uses UDP in comparison to all other required ports which are TCP.
+## 检查覆盖网络是否正常运行
 
+你可以将 Pod 调度到集群中的任何主机，但是 NGINX Ingress Controller 需要能够将 `NODE_1` 请求路由到 `NODE_2`。这会在覆盖网络上进行。如果覆盖网络无法正常工作，由于 NGINX Ingress Controller 无法路由到 pod，因此 TCP/HTTP 连接会间歇性失败。
 
-## Check if Overlay Network is Functioning Correctly
+要测试覆盖网络，你可以启动以下 `DaemonSet` 定义。这样，每台主机上都会运行一个 `swiss-army-knife` 容器（镜像由 Rancher 工程师开发，可在[此处](https://github.com/rancherlabs/swiss-army-knife)找到），我们使用该镜像在所有主机上的容器之间运行 `ping` 测试。
 
-The pod can be scheduled to any of the hosts you used for your cluster, but that means that the NGINX ingress controller needs to be able to route the request from `NODE_1` to `NODE_2`. This happens over the overlay network. If the overlay network is not functioning, you will experience intermittent TCP/HTTP connection failures due to the NGINX ingress controller not being able to route to the pod.
+:::note
 
-To test the overlay network, you can launch the following `DaemonSet` definition. This will run a `swiss-army-knife` container on every host (image was developed by Rancher engineers and can be found here: https://github.com/rancherlabs/swiss-army-knife), which we will use to run a `ping` test between containers on all hosts.
-
-:::caution
-
-The `swiss-army-knife` container does not support Windows nodes. It also [does not support ARM nodes](https://github.com/leodotcloud/swiss-army-knife/issues/18), such as a Raspberry Pi. When the test encounters incompatible nodes, this is recorded in the pod logs as an error message, such as `exec user process caused: exec format error` for ARM nodes, or `ImagePullBackOff (Back-off pulling image "rancherlabs/swiss-army-knife)` for Windows nodes.
+此容器[不支持 ARM 节点](https://github.com/leodotcloud/swiss-army-knife/issues/18)（例如 Raspberry Pi）。Pod 日志会显示为 `exec user process caused: exec format error`。
 
 :::
 
-1. Save the following file as `overlaytest.yml`
+1. 将以下内容另存为 `overlaytest.yml`：
 
-    ```
-    apiVersion: apps/v1
-    kind: DaemonSet
-    metadata:
-      name: overlaytest
-    spec:
-      selector:
-          matchLabels:
-            name: overlaytest
-      template:
-        metadata:
-          labels:
-            name: overlaytest
-        spec:
-          tolerations:
-          - operator: Exists
-          containers:
-          - image: rancherlabs/swiss-army-knife
-            imagePullPolicy: Always
-            name: overlaytest
-            command: ["sh", "-c", "tail -f /dev/null"]
-            terminationMessagePath: /dev/termination-log
+   ```
+   apiVersion: apps/v1
+   kind: DaemonSet
+   metadata:
+     name: overlaytest
+   spec:
+     selector:
+         matchLabels:
+           name: overlaytest
+     template:
+       metadata:
+         labels:
+           name: overlaytest
+       spec:
+         tolerations:
+         - operator: Exists
+         containers:
+         - image: rancherlabs/swiss-army-knife
+           imagePullPolicy: Always
+           name: overlaytest
+           command: ["sh", "-c", "tail -f /dev/null"]
+           terminationMessagePath: /dev/termination-log
 
-    ```
+   ```
 
-2. Launch it using `kubectl create -f overlaytest.yml`
-3. Wait until `kubectl rollout status ds/overlaytest -w` returns: `daemon set "overlaytest" successfully rolled out`.
-4. Run the following script, from the same location.  It will have each `overlaytest` container on every host ping each other:
-    ```
-    #!/bin/bash
-    echo "=> Start network overlay test"
-      kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' |
-      while read spod shost
-        do kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' |
-        while read tip thost
-          do kubectl --request-timeout='10s' exec $spod -c overlaytest -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"
-            RC=$?
-            if [ $RC -ne 0 ]
-              then echo FAIL: $spod on $shost cannot reach pod IP $tip on $thost
-              else echo $shost can reach $thost
-            fi
-        done
-      done
-    echo "=> End network overlay test"
-    ```
+2. 使用 `kubectl create -f overlaytest.yml` 启动它。
+3. 等待 `kubectl rollout status ds/overlaytest -w` 返回 `daemon set "overlaytest" successfully rolled out`。
+4. 从同一位置运行以下脚本。它会让每个主机上的所有 `overlaytest` 容器相互 ping 通：
+   ```
+   #!/bin/bash
+   echo "=> Start network overlay test"
+     kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.metadata.name}{" "}{@.spec.nodeName}{"\n"}{end}' |
+     while read spod shost
+       do kubectl get pods -l name=overlaytest -o jsonpath='{range .items[*]}{@.status.podIP}{" "}{@.spec.nodeName}{"\n"}{end}' |
+       while read tip thost
+         do kubectl --request-timeout='10s' exec $spod -c overlaytest -- /bin/sh -c "ping -c2 $tip > /dev/null 2>&1"
+           RC=$?
+           if [ $RC -ne 0 ]
+             then echo FAIL: $spod on $shost cannot reach pod IP $tip on $thost
+             else echo $shost can reach $thost
+           fi
+       done
+     done
+   echo "=> End network overlay test"
+   ```
 
-5. When this command has finished running, it will output the state of each route:
+5. 命令运行完成后，它会输出每条路由的状态：
 
-    ```
-    => Start network overlay test
-    Error from server (NotFound): pods "wk2" not found
-    FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.7.3 on wk2
-    Error from server (NotFound): pods "wk2" not found
-    FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.0.5 on cp1
-    Error from server (NotFound): pods "wk2" not found
-    FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.2.12 on wk1
-    command terminated with exit code 1
-    FAIL: overlaytest-v4qkl on cp1 cannot reach pod IP 10.42.7.3 on wk2
-    cp1 can reach cp1
-    cp1 can reach wk1
-    command terminated with exit code 1
-    FAIL: overlaytest-xpxwp on wk1 cannot reach pod IP 10.42.7.3 on wk2
-    wk1 can reach cp1
-    wk1 can reach wk1
-    => End network overlay test
-    ```
-    If you see error in the output, there is some issue with the route between the pods on the two hosts.  In the above output the node `wk2` has no connectivity over the overlay network. This could be because the [required ports](../../how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/node-requirements-for-rancher-managed-clusters.md#networking-requirements) for overlay networking are not opened for `wk2`.
-6. You can now clean up the DaemonSet by running `kubectl delete ds/overlaytest`.
+   ```
+   => Start network overlay test
+   Error from server (NotFound): pods "wk2" not found
+   FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.7.3 on wk2
+   Error from server (NotFound): pods "wk2" not found
+   FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.0.5 on cp1
+   Error from server (NotFound): pods "wk2" not found
+   FAIL: overlaytest-5bglp on wk2 cannot reach pod IP 10.42.2.12 on wk1
+   command terminated with exit code 1
+   FAIL: overlaytest-v4qkl on cp1 cannot reach pod IP 10.42.7.3 on wk2
+   cp1 can reach cp1
+   cp1 can reach wk1
+   command terminated with exit code 1
+   FAIL: overlaytest-xpxwp on wk1 cannot reach pod IP 10.42.7.3 on wk2
+   wk1 can reach cp1
+   wk1 can reach wk1
+   => End network overlay test
+   ```
+   如果你在输出中看到错误，则说明两台主机上的 Pod 路由存在问题。在上面的输出中，节点 `wk2` 在覆盖网络上没有连接。原因可能是没有为 `wk2` 打开覆盖网络的[必需端口](../../cluster-deployment/node-requirements.md#网络要求)。
+6. 你现在可以通过运行 `kubectl delete ds/overlaytest` 来清理 DaemonSet。
 
+## 检查主机和对等/隧道设备/设备上的 MTU 是否正确配置
 
-### Check if MTU is Correctly Configured on Hosts and on Peering/Tunnel Appliances/Devices
-
-When the MTU is incorrectly configured (either on hosts running Rancher, nodes in created/imported clusters or on appliances/devices in between), error messages will be logged in Rancher and in the agents, similar to:
+如果 MTU 在运行 Rancher 的主机、创建/导入集群中的节点或两者之间的设备上配置不正确，Rancher 和 Agent 会记录类似以下的错误信息：
 
 * `websocket: bad handshake`
 * `Failed to connect to proxy`
 * `read tcp: i/o timeout`
 
-See [Google Cloud VPN: MTU Considerations](https://cloud.google.com/vpn/docs/concepts/mtu-considerations#gateway_mtu_vs_system_mtu) for an example how to configure MTU correctly when using Google Cloud VPN between Rancher and cluster nodes.
+有关在 Rancher 和集群节点之间使用 Google Cloud VPN 时如何正确配置 MTU 的示例，请参阅 [Google Cloud VPN：MTU 注意事项](https://cloud.google.com/vpn/docs/concepts/mtu-considerations#gateway_mtu_vs_system_mtu)。

@@ -1,94 +1,93 @@
 ---
-title: Previous v3 Rancher API Guide
+title: API
 ---
 
 <head>
-  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/api/v3-rancher-api-guide"/>
+  <link rel="canonical" href="https://ranchermanager.docs.rancher.com/zh/reference-guides/about-the-api"/>
 </head>
 
-Rancher v2.8.0 introduced the Rancher Kubernetes API (RK-API). The previous v3 Rancher API is still available. This page describes the v3 API. For more information on RK-API, see the [RK-API quickstart](./quickstart.md) and [reference guide](./api-reference.mdx).
+## 如何使用 API
 
-## How to Use the API
-
-The previous v3 API has its own user interface accessible from a [web browser](#enable-view-in-api). This is an easy way to see resources, perform actions, and see the equivalent `curl` or HTTP request & response. To access it:
+API 有自己的用户界面，你可以从 Web 浏览器访问它。这是查看资源、执行操作以及查看等效 cURL 或 HTTP 请求和响应的一种简单的方法。要访问它：
 
 <Tabs>
 <TabItem value="Rancher v2.6.4+">
 
-1. Click your user avatar in the upper right corner.
-1. Click **Account & API Keys**.
-1. Under the **API Keys** section, find the **API Endpoint** field and click the link. The link looks something like `https://<RANCHER_FQDN>/v3`, where `<RANCHER_FQDN>` is the fully qualified domain name of your Rancher deployment.
+1. 单击右上角的用户头像。
+1. 单击**账号 & API 密钥**。
+1. 在 **API 密钥**下，找到 **API 端点**字段并单击链接。该链接类似于 `https://<RANCHER_FQDN>/v3`，其中 `<RANCHER_FQDN>` 是 Rancher deployment 的完全限定域名。
 
 </TabItem>
-<TabItem value="Rancher before v2.6.4">
+<TabItem value="Rancher 版本低于 v2.6.4">
 
-Go to the URL endpoint at `https://<RANCHER_FQDN>/v3`, where `<RANCHER_FQDN>` is the fully qualified domain name of your Rancher deployment.
+转到位于 `https://<RANCHER_FQDN>/v3` 的 URL 端点，其中 `<RANCHER_FQDN>` 是你的 Rancher deployment 的完全限定域名。
 
 </TabItem>
 </Tabs>
 
-## Authentication
+## 认证
 
-API requests must include authentication information. Authentication is done with HTTP basic authentication using [API keys](../reference-guides/user-settings/api-keys.md). API keys can create new clusters and have access to multiple clusters via `/v3/clusters/`. [Cluster and project roles](../how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/manage-role-based-access-control-rbac/cluster-and-project-roles.md) apply to these keys and restrict what clusters and projects the account can see and what actions they can take.
+API 请求必须包含认证信息。认证是通过 [API 密钥](../rancher-admin/users/settings/api-keys.md)使用 HTTP 基本认证完成的。API 密钥可以创建新集群并通过 `/v3/clusters/` 访问多个集群。[集群和项目角色](../rancher-admin/users/authn-and-authz/manage-role-based-access-control-rbac/cluster-and-project-roles.md)会应用于这些键，并限制账号可以查看的集群和项目以及可以执行的操作。
 
-By default, certain cluster-level API tokens are generated with infinite time-to-live (`ttl=0`). In other words, API tokens with `ttl=0` never expire unless you invalidate them. For details on how to invalidate them, refer to the [API tokens page](api-tokens.md).
+默认情况下，某些集群级别的 API 令牌是使用无限期 TTL（`ttl=0`）生成的。换言之，除非你让令牌失效，否则 `ttl=0` 的 API 令牌永远不会过期。有关如何使 API 令牌失效的详细信息，请参阅 [API 令牌](api-tokens.md)。
 
-## Making Requests
+## 发出请求
 
-The API is generally RESTful but has several features to make the definition of everything discoverable by a client so that generic clients can be written instead of having to write specific code for every type of resource. For detailed info about the generic API spec, [see further documentation](https://github.com/rancher/api-spec/blob/master/specification.md).
+该 API 通常是 RESTful 的，但是还具有多种功能。这些功能可以使客户端发现所有内容，因此可以编写通用客户端，而不必为每种资源编写特定代码。有关通用 API 规范的详细信息，请参阅[此处](https://github.com/rancher/api-spec/blob/master/specification.md)。
 
-- Every type has a Schema which describes:
-  - The URL to get to the collection of this type of resource.
-  - Every field the resource can have, along with their type, basic validation rules, whether they are required or optional, etc.
-  - Every action that is possible on this type of resource, with their inputs and outputs (also as schemas).
-  - Every field that allows filtering.
-  - What HTTP verb methods are available for the collection itself, or for individual resources in the collection.
+- 每种类型都有一个 Schema，这个 Schema 描述了以下内容：
+   - 用于获取此类资源集合的 URL
+   - 资源可以具有的每个字段及其类型、基本验证规则、是必填还是可选字段等
+   - 在此类资源上可以执行的每个操作，以及它们的输入和输出（也作为 schema）
+   - 允许过滤的每个字段
+   - 集合本身或集合中的单个资源可以使用的 HTTP 操作方法
 
-The design allows you to load just the list of schemas and access everything about the API. The UI for the API contains no code specific to Rancher itself. The URL to get Schemas is sent in every HTTP response as a `X-Api-Schemas` header. From there you can follow the `collection` link on each schema to know where to list resources, and follow other `links` inside of the returned resources to get any other information.
 
-In practice, you may just want to construct URL strings. We highly suggest limiting this to the top-level to list a collection (`/v3/<type>`) or get a specific resource (`/v3/<type>/<id>`). Anything deeper than that is subject to change in future releases.
+- 因此，你可以只加载 schema 列表并了解 API 的所有信息。实际上，这是 API 的 UI 工作方式，它不包含特定于 Rancher 本身的代码。每个 HTTP 响应中的 `X-Api-Schemas` 标头都会发送获取 Schemas 的 URL。你可以按照每个 schema 上的 `collection` 链接了解要在哪里列出资源，并在返回资源中的其他 `links` 中获取其他信息。
 
-Resources have relationships between each other called links. Each resource includes a map of `links` with the name of the link and the URL where you can retrieve that information. Again, you should `GET` the resource and then follow the URL in the `links` map, not construct these strings yourself.
+- 在实践中，你可能只想构造 URL 字符串。我们强烈建议将此限制为在顶层列出的集合 (`/v3/<type>`)，或获取特定资源 (`/v3/<type>/<id>`)。除此之外的任何内容都可能在将来的版本中发生更改。
 
-Most resources have actions, which do something or change the state of the resource. To use them, send a HTTP `POST` to the URL in the `actions` map of the action you want. Certain actions require input or produce output. See the individual documentation for each type or the schemas for specific information.
+- 资源之间相互之间有联系，称为链接（links）。每个资源都包含一个 `links` 映射，其中包含链接名称和用于检索该信息的 URL。同样，你应该 `GET` 资源并遵循 `links` 映射中的 URL，而不是自己构造这些字符串。
 
-To edit a resource, send a HTTP `PUT` to the `links.update` link on the resource with the fields that you want to change. If the link is missing then you don't have permission to update the resource. Unknown fields and ones that are not editable are ignored.
+- 大多数资源都有操作（action），表示可以执行某个操作或改变资源的状态。要使用操作，请将 HTTP `POST` 请求发送到 `actions` 映射中你想要的操作的 URL。某些操作需要输入或生成输出，请参阅每种类型的独立文档或 schema 以获取具体信息。
 
-To delete a resource, send a HTTP `DELETE` to the `links.remove` link on the resource. If the link is missing then you don't have permission to update the resource.
+- 要编辑资源，请将 HTTP `PUT` 请求发送到资源上的 `links.update` 链接，其中包含要更改的字段。如果链接丢失，则你无权更新资源。未知字段和不可编辑的字段将被忽略。
 
-To create a new resource, HTTP `POST` to the collection URL in the schema (which is `/v3/<type>`).
+- 要删除资源，请将 HTTP `DELETE` 请求发送到资源上的 `links.remove` 链接。如果链接丢失，则你无权更新资源。
 
-## Filtering
+- 要创建新资源，HTTP `POST` 到 schema（即 `/v3/<type>`）中的集合 URL。
 
-Most collections can be filtered on the server-side by common fields using HTTP query parameters. The `filters` map shows you what fields can be filtered on and what the filtered values were for the request you made. The API UI has controls to setup filtering and show you the appropriate request. For simple "equals" matches it's just `field=value`. Modifiers can be added to the field name, for example, `field_gt=42` for "field is greater than 42." See the [API spec](https://github.com/rancher/api-spec/blob/master/specification.md#filtering) for full details.
+## 过滤
 
-## Sorting
+你可以使用 HTTP 查询参数的公共字段在服务器端过滤大多数集合。`filters` 映射显示了可以过滤的字段，以及过滤后的值在你发起的请求中是什么。API UI 具有设置过滤和显示适当请求的控件。对于简单的 "equals" 匹配，它只是 `field=value`。你可以将修饰符添加到字段名称，例如 `field_gt=42` 表示“字段大于 42”。详情请参阅 [API 规范](https://github.com/rancher/api-spec/blob/master/specification.md#filtering)。
 
-Most collections can be sorted on the server-side by common fields using HTTP query parameters. The `sortLinks` map shows you what sorts are available, along with the URL to get the collection sorted by that. It also includes info about what the current response was sorted by, if specified.
+## 排序
 
-## Pagination
+你可以使用 HTTP 查询参数的公共字段在服务器端排序大多数集合。`sortLinks` 映射显示了可用的排序，以及用于获取遵循该排序的集合的 URL。它还包括当前响排序依据的信息（如果指定）。
 
-API responses are paginated with a limit of 100 resources per page by default. This can be changed with the `limit` query parameter, up to a maximum of 1000, for example, `/v3/pods?limit=1000`. The `pagination` map in collection responses tells you whether or not you have the full result set and has a link to the next page if you do not.
+## 分页
 
-## Capturing v3 API Calls
+默认情况下，API 响应以每页 100 个资源的限制进行分页。你可以通过 `limit` 查询参数进行更改，最大为 1000，例如 `/v3/pods?limit=1000`。集合响应中的 `pagination` 映射能让你知道你是否拥有完整的结果集，如果没有，则会指向下一页的链接。
 
-You can use browser developer tools to capture how the v3 API is called. For example, you could follow these steps to use the Chrome developer tools to get the API call for provisioning an RKE cluster:
+## 捕获 Rancher API 调用
 
-1. In the Rancher UI, go to **Cluster Management** and click **Create.**
-1. Click one of the cluster types. This example uses Digital Ocean.
-1. Fill out the form with a cluster name and node template, but don't click **Create**.
-1. You need to open the developer tools before the cluster creation to see the API call being recorded. To open the tools, right-click the Rancher UI and click **Inspect.**
-1. In the developer tools, click the **Network** tab.
-1. On the **Network** tab, make sure **Fetch/XHR** is selected.
-1. In the Rancher UI, click **Create**. In the developer tools, you should see a new network request with the name `cluster?_replace=true`.
-1. Right-click `cluster?_replace=true` and click **Copy > Copy as cURL.**
-1. Paste the result into any text editor. You can see the POST request, including the URL it was sent to, all headers, and the full body of the request. This command can be used to create a cluster from the command line. Note: the request should be stored in a safe place because it contains credentials.
+你可以使用浏览器开发人员工具来捕获 Rancher API 的调用方式。例如，你可以按照以下步骤使用 Chrome 开发人员工具来获取用于配置 RKE 集群的 API 调用：
 
-### Enable View in API
+1. 在 Rancher UI 中，转到**集群管理**并单击**创建**。
+1. 单击某个集群类型。此示例使用 Digital Ocean。
+1. 使用集群名称和节点模板填写表单，但不要单击**创建**。
+1. 在创建集群之前，你需要打开开发人员工具才能看到正在记录的 API 调用。要打开工具，右键单击 Rancher UI，然后单击**检查**。
+1. 在开发者工具中，单击 **Network** 选项卡。
+1. 在 **Network** 选项卡上，确保选择了 **Fetch/XHR**。
+1. 在 Rancher UI 中，单击**创建**。在开发者工具中，你应该会看到一个名为 `cluster?_replace=true` 的新网络请求。
+1. 右键单击 `cluster?_replace=true` 并单击**复制 > 复制为 cURL**。
+1. 将结果粘贴到文本编辑器中。你将能够看到 POST 请求，包括被发送到的 URL、所有标头以及请求的完整正文。此命令可用于从命令行创建集群。请注意，请求包含凭证，因此请将请求存储在安全的地方。
 
-You can also view captured v3 API calls for your respective clusters and resources. This feature is not enabled by default. To enable it:
+### 启用在 API 中查看
 
-1. Click your **User Tile** in the top right corner of the UI and select **Preferences** from the drop-down menu.
-2. Under the **Advanced Features** section, click **Enable "View in API"**
+你还可以查看针对各自集群和资源捕获的 Rancher API 调用。 默认情况下不启用此功能。 要启用它：
 
-Once checked, the **View in API** link is displayed under the **⋮** sub-menu on resource pages in the UI.
+1. 单击 UI 右上角的 **用户图标**，然后从下拉菜单中选择 **偏好设置**
+1. 在**高级功能**部分下，单击**启用"在 API 中查看"**
+
+选中后，**在 API 中查看**链接现在将显示在 UI 资源页面上的 **⋮** 子菜单下。
