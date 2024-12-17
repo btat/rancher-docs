@@ -179,10 +179,12 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
           editUrl: 'https://github.com/rancher/rancher-docs/edit/main/',
-          lastVersion: 'current',
+          includeCurrentVersion: false,
+          // lastVersion: 'latest-mirror',
           versions: {
-            current: {
+            'latest-mirror': {
               label: 'Latest',
+              banner: 'none'
             },
             '2.10': {
               label: 'v2.10',
