@@ -194,51 +194,6 @@ module.exports = {
               path: "v2.12",
               banner: "none"
             },
-            2.11: {
-              label: "v2.11",
-              path: "v2.11",
-              banner: "none",
-            },
-            "2.10": {
-              label: "v2.10",
-              path: "v2.10",
-              banner: "none",
-            },
-            2.9: {
-              label: "v2.9",
-              path: "v2.9",
-              banner: "none",
-            },
-            2.8: {
-              label: "v2.8 (Archived)",
-              path: "v2.8",
-              banner: `none`,
-              noIndex: true,
-            },
-            2.7: {
-              label: "v2.7 (Archived)",
-              path: "v2.7",
-              banner: `none`,
-              noIndex: true,
-            },
-            2.6: {
-              label: "v2.6 (Archived)",
-              path: "v2.6",
-              banner: `none`,
-              noIndex: true,
-            },
-            2.5: {
-              label: "v2.5 (Archived)",
-              path: "v2.5",
-              banner: `none`,
-              noIndex: true,
-            },
-            "2.0-2.4": {
-              label: "v2.0-v2.4 (Archived)",
-              path: "v2.0-v2.4",
-              banner: "none",
-              noIndex: true,
-            },
           },
         },
         blog: false, // Optional: disable the blog plugin

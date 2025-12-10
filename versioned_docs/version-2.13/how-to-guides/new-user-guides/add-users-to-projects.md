@@ -24,6 +24,9 @@ You can add members to a project as you create it (recommended if possible). For
 
 Following project creation, you can add users as project members so that they can access its resources.
 
+<Tabs>
+<TabItem value="UI">
+
 1. In the upper left corner, click **☰ > Cluster Management**.
 1. On the **Clusters** page, go to the cluster where you want to add members to a project and click **Explore**.
 1. Click **Cluster > Projects/Namespaces**.
@@ -67,6 +70,62 @@ Following project creation, you can add users as project members so that they ca
         - To remove roles from the list, [Lock/Unlock Roles](../../how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/manage-role-based-access-control-rbac/locked-roles.md).
 
     :::
+
+</TabItem>
+<TabItem value="RK-API">
+
+Look up the project ID to specify the `metadata.namespace` field and `projectName` field values.
+
+```bash
+kubectl --namespace c-m-abcde get projects
+```
+
+Look up the role template ID to specify the `roleTemplateName` field value (e.g. `project-member` or `project-owner`).
+
+```bash
+kubectl get roletemplates
+```
+
+When adding a user member specify the `userPrincipalName` field:
+
+```bash
+kubectl create -f - <<EOF
+apiVersion: management.cattle.io/v3
+kind: ProjectRoleTemplateBinding
+metadata:
+  generateName: prtb-
+  namespace: p-vwxyz
+projectName: c-m-abcde:p-vwxyz
+roleTemplateName: project-member
+userPrincipalName: keycloak_user://user
+EOF
+```
+
+When adding a group member specify the `groupPrincipalName` field instead:
+
+```bash
+kubectl create -f - <<EOF
+apiVersion: management.cattle.io/v3
+kind: ProjectRoleTemplateBinding
+metadata:
+  generateName: prtb-
+  namespace: p-vwxyz
+projectName: c-m-abcde:p-vwxyz
+roleTemplateName: project-member
+groupPrincipalName: keycloak_group://group
+EOF
+```
+
+Create a projectroletemplatebinding for each role you want to assign to the project member.
+
+:::tip
+
+For more information on fields and their usage, refer to the [Project API Reference](../../api/project/api-reference.md).
+
+:::
+
+</TabItem>
+</Tabs>
 
 **Result:** The chosen users are added to the project.
 

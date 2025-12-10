@@ -1245,9 +1245,168 @@
         "api/quickstart",
         {
           "type": "category",
+          "label": "AuditPolicy",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "ClusterRoleTemplateBinding",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Kubeconfig",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "GlobalRole",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "GlobalRoleBinding",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Project",
+          "items": [
+            "api/project/workflows",
+            "api/project/api-reference"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "ProjectRoleTemplateBinding",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "RoleTemplate",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Token",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "User",
+          "items": [
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "Workflow examples"
+            },
+            {
+              "type": "doc",
+              "id": "faq/general-faq",
+              "label": "API Reference"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "-------------",
+          "items": [
+            "faq/general-faq"
+          ]
+        },
+        {
+          "type": "category",
           "label": "Example Workflows",
           "items": [
-            "api/workflows/projects",
+            "faq/general-faq",
             "api/workflows/kubeconfigs",
             "api/workflows/tokens",
             "api/workflows/users"
